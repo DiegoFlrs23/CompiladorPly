@@ -1,0 +1,6 @@
+x = 10;
+y = x + 5
+imprimir("Hola")
+si (x > y) {
+    imprimir("x es mayor")
+}
