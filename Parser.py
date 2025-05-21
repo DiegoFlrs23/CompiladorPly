@@ -2,14 +2,14 @@ from typing import ReadOnly
 from urllib.request import OpenerDirector
 
 import ply.yacc as yacc
-from Lexer_Ply import tokens, errores_lexicos, generar_bitacora_html
+from Lexer_Ply import tokens, errores, generar_bitacora_html
 import tkinter as tk
 from tkinter import filedialog
 import ply.lex as lex
 from Lexer_Ply import lexer
 
-# Lista para errores sintácticos
-errores_sintacticos = []
+'''# Lista para errores sintácticos
+errores_sintacticos = []'''
 # Tabla de símbolos
 tabla_simbolos = {}
 
@@ -65,9 +65,11 @@ def p_bloque(p):
 # Manejo de errores sintácticos
 def p_error(p):
     if p:
-        errores_sintacticos.append(f"Error sintactico en linea {p.lineno}: Token inesperado '{p.value}'")
+        error_msg = f"[SINTACTICO] Error en linea {p.lineno}: Token inesperado '{p.value}'"
     else:
-        errores_sintacticos.append("Error sintactico: Fin de archivo inesperado")
+        error_msg = "[SINTACTICO] Error: Fin de archivo inesperado"
+    print(error_msg)
+    errores.append(error_msg)
 
 # Construcción del parser
 parser = yacc.yacc()
@@ -90,11 +92,11 @@ def probar_parser(codigo):
     resultado = parser.parse(codigo)
 
     # Generar bitácoras de errores y tabla de símbolos
-    generar_bitacora_html(tokens_lista, errores_lexicos + errores_sintacticos, "bitacora_errores.html")
+    generar_bitacora_html(tokens_lista, errores, "bitacora_errores.html")
 
     # Imprimir errores si existen
-    if errores_sintacticos:
-        for error in errores_sintacticos:
+    if errores:
+        for error in errores:
             print("Error sintáctico detectado:", error)
 
 def leer_archivo(archivo):

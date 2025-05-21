@@ -73,13 +73,14 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 # Lista para errores léxicos
-errores_lexicos = []
+errores = []
 def t_error(t):
     columna = encontrar_columna(t)
-    error_msg = f"Caracter ilegal '{t.value[0]}' en la línea {t.lineno}, columna {columna}"
+    error_msg = f"[LEXICO] Caracter ilegal '{t.value[0]}' en linea {t.lineno}, columna {columna}"
     print(error_msg)
-    errores_lexicos.append(error_msg)
+    errores.append(error_msg)
     t.lexer.skip(1)
+
 
 def encontrar_columna(token):
     ultima_linea = token.lexer.lexdata.rfind('\n', 0, token.lexpos)
@@ -117,20 +118,20 @@ def generar_bitacora_html(tokens_lista, errores_lista, nombre_archivo="bitacora_
 
 
     with open(nombre_archivo, "w", encoding="utf-8") as f:
-        f.write("<html><head><title>Bitácora de Errores</title></head><body>")
+        f.write("<html><head><title>Bitacora de Errores</title></head><body>")
         f.write("<h2>Lista de Tokens</h2>")
         f.write("<table border='1'><tr><th>Tipo</th><th>Valor</th><th>Línea</th></tr>")
         for token in tokens_lista:
             f.write(f"<tr><td>{token.type}</td><td>{token.value}</td><td>{token.lineno}</td></tr>")
         f.write("</table>")
 
-        f.write("<h2>Errores Léxicos</h2>")
+        f.write("<h2>Errores Lexicos y Sintacticos</h2>")
         f.write("<ul>")
         for error in errores_lista:
             f.write(f"<li>{error}</li>")
         f.write("</ul>")
 
-        f.write("<h2>Tabla de Símbolos</h2>")
+        f.write("<h2>Tabla de Simbolos</h2>")
         f.write("<table border='1'><tr><th>Nombre</th><th>Línea</th><th>Tipo</th></tr>")
         for nombre, linea, tipo in simbolos:
             f.write(f"<tr><td>{nombre}</td><td>{linea}</td><td>{tipo}</td></tr>")
@@ -140,14 +141,14 @@ def generar_bitacora_html(tokens_lista, errores_lista, nombre_archivo="bitacora_
     print(f"Bitácora de errores generada: {nombre_archivo}")
 
 def probar_lexer(codigo):
-    global errores_lexicos  # Aseguramos que se use la lista global de errores
-    errores_lexicos.clear()  # Limpiar errores anteriores
+    global errores  # Aseguramos que se use la lista global de errores
+    errores.clear()  # Limpiar errores anteriores
     lexer.input(codigo)
     tokens_lista = []
     for token in lexer:
         tokens_lista.append(token)
         print(token)
-    generar_bitacora_html(tokens_lista, errores_lexicos)  # Generar HTML con errores
+    generar_bitacora_html(tokens_lista, errores)  # Generar HTML con errores
 
 def leer_archivo(archivo):
     try:
