@@ -92,6 +92,13 @@ lexer = lex.lex()
 
 # Generar bitácora en HTML
 def generar_bitacora_html(tokens_lista, errores_lista, nombre_archivo="bitacora_errores.html"):
+    simbolos = []
+    for token in tokens_lista:
+        if token.type == 'IDENTIFICADOR':
+            simbolos.append((token.value, token.lineno, 'Variable Global'))
+        elif token.type == 'MIENTRAS':
+            simbolos.append((token.value, token.lineno, 'Inicio de Bucle'))
+
     with open(nombre_archivo, "w", encoding="utf-8") as f:
         f.write("<html><head><title>Bitácora de Errores</title></head><body>")
         f.write("<h2>Lista de Tokens</h2>")
@@ -99,10 +106,20 @@ def generar_bitacora_html(tokens_lista, errores_lista, nombre_archivo="bitacora_
         for token in tokens_lista:
             f.write(f"<tr><td>{token.type}</td><td>{token.value}</td><td>{token.lineno}</td></tr>")
         f.write("</table>")
-        f.write("<h2>Errores Lexicos y Sintacticos</h2><ul>")
+
+        f.write("<h2>Errores Léxicos</h2>")
+        f.write("<ul>")
         for error in errores_lista:
             f.write(f"<li>{error}</li>")
-        f.write("</ul></body></html>")
+        f.write("</ul>")
+
+        f.write("<h2>Tabla de Símbolos</h2>")
+        f.write("<table border='1'><tr><th>Nombre</th><th>Línea</th><th>Tipo</th></tr>")
+        for nombre, linea, tipo in simbolos:
+            f.write(f"<tr><td>{nombre}</td><td>{linea}</td><td>{tipo}</td></tr>")
+        f.write("</table>")
+
+        f.write("</body></html>")
     print(f"Bitácora de errores generada: {nombre_archivo}")
 
 def probar_lexer(codigo):

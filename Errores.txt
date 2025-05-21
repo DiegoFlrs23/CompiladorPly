@@ -35,3 +35,28 @@ imprimir(Hola) # Error léxico: falta de comillas en la cadena
 si (x => y) {  # Error léxico: uso incorrecto del operador de comparación
     imprimir("x es mayor")
 # Falta la llave de cierre
+
+-------------------------------------------------------------------------------
+
+def generar_bitacora_html(tokens_lista, errores_lista, nombre_archivo="bitacora_errores.html"):
+    with open(nombre_archivo, "w", encoding="utf-8") as f:
+        f.write("<html><head><title>Bitácora de Errores</title></head><body>")
+        f.write("<h2>Lista de Tokens</h2>")
+        f.write("<table border='1'><tr><th>Tipo</th><th>Valor</th><th>Línea</th></tr>")
+        for token in tokens_lista:
+            f.write(f"<tr><td>{token.type}</td><td>{token.value}</td><td>{token.lineno}</td></tr>")
+        f.write("</table>")
+        f.write("<h2>Errores Lexicos y Sintacticos</h2><ul>")
+        for error in errores_lista:
+            f.write(f"<li>{error}</li>")
+        f.write("</ul></body></html>")
+    print(f"Bitácora de errores generada: {nombre_archivo}")
+
+    ------------------------------------------------------------------------------------------------------
+
+x = 10;
+y = x + 5
+imprimir("Hola")
+si (x > y) {
+    imprimir("x es mayor")
+}
