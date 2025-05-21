@@ -98,6 +98,23 @@ def generar_bitacora_html(tokens_lista, errores_lista, nombre_archivo="bitacora_
             simbolos.append((token.value, token.lineno, 'Variable Global'))
         elif token.type == 'MIENTRAS':
             simbolos.append((token.value, token.lineno, 'Inicio de Bucle'))
+        elif token.type == 'IMPRIMIR':
+            simbolos.append((token.value, token.lineno, 'Funcion'))
+        elif token.type == 'RETORNAR':
+            simbolos.append((token.value, token.lineno, 'Funcion'))
+        elif token.type == 'LEER':
+            simbolos.append((token.value, token.lineno, 'Funcion'))
+        elif token.type == 'RANGO':
+            simbolos.append((token.value, token.lineno, 'Funcion'))
+        elif token.type == 'FUNC':
+            simbolos.append((token.value, token.lineno, 'Funcion'))
+        elif token.type == 'SI':
+            simbolos.append((token.value, token.lineno, 'Inicio Condicion'))
+        elif token.type == 'SINO':
+            simbolos.append((token.value, token.lineno, 'Condicion Alternativa'))
+        elif token.type == 'PARA':
+            simbolos.append((token.value, token.lineno, 'Condicion'))
+
 
     with open(nombre_archivo, "w", encoding="utf-8") as f:
         f.write("<html><head><title>Bitácora de Errores</title></head><body>")
