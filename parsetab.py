@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'CADENA COMA CORCHETE_DER CORCHETE_IZQ DIFERENTE DIV FUNC IDENTIFICADOR IGUAL IGUAL_IGUAL IMPRIMIR LEER LLAVE_DER LLAVE_IZQ MAS MAYOR MAYOR_IGUAL MENOR MENOR_IGUAL MENOS MIENTRAS MOD MULT NO NUMERO O PARA PARENTESIS_DER PARENTESIS_IZQ RANGO RETORNAR SI SINO Yprograma : sentenciassentencias : sentencia sentencias\n| sentenciasentencia : asignacion\n| imprimir\n| condicionasignacion : IDENTIFICADOR IGUAL expresionexpresion : expresion MAS expresion\n| expresion MENOS expresion\n| expresion MULT expresion\n| expresion DIV expresion\n| NUMERO\n| IDENTIFICADORimprimir : IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DERcondicion : SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloquecomparador : MAYOR\n| MENOR\n| MAYOR_IGUAL\n| MENOR_IGUAL\n| IGUAL_IGUAL\n| DIFERENTEbloque : LLAVE_IZQ sentencias LLAVE_DER'
+_lr_signature = 'CADENA COMA CORCHETE_DER CORCHETE_IZQ DIFERENTE DIV FUNC IDENTIFICADOR IGUAL IGUAL_IGUAL IMPRIMIR LEER LLAVE_DER LLAVE_IZQ MAS MAYOR MAYOR_IGUAL MENOR MENOR_IGUAL MENOS MIENTRAS MOD MULT NO NUMERO O PARA PARENTESIS_DER PARENTESIS_IZQ RANGO RETORNAR SI SINO Yprograma : sentenciassentencias : sentencia sentencias\n| sentenciasentencia : asignacion\n| imprimir\n| condicionasignacion : IDENTIFICADOR IGUAL expresionexpresion : expresion MAS expresion\n| expresion MENOS expresion\n| expresion MULT expresion\n| expresion DIV expresionexpresion : NUMEROexpresion : IDENTIFICADORimprimir : IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DERcondicion : SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloquecomparador : MAYOR\n| MENOR\n| MAYOR_IGUAL\n| MENOR_IGUAL\n| IGUAL_IGUAL\n| DIFERENTEbloque : LLAVE_IZQ sentencias LLAVE_DER'
     
 _lr_action_items = {'IDENTIFICADOR':([0,3,4,5,6,11,13,14,15,16,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,37,38,40,],[7,7,-4,-5,-6,14,14,-13,-7,-12,14,14,14,14,-14,14,-16,-17,-18,-19,-20,-21,-8,-9,-10,-11,-15,7,-22,]),'IMPRIMIR':([0,3,4,5,6,14,15,16,23,31,32,33,34,37,38,40,],[8,8,-4,-5,-6,-13,-7,-12,-14,-8,-9,-10,-11,-15,8,-22,]),'SI':([0,3,4,5,6,14,15,16,23,31,32,33,34,37,38,40,],[9,9,-4,-5,-6,-13,-7,-12,-14,-8,-9,-10,-11,-15,9,-22,]),'$end':([1,2,3,4,5,6,10,14,15,16,23,31,32,33,34,37,40,],[0,-1,-3,-4,-5,-6,-2,-13,-7,-12,-14,-8,-9,-10,-11,-15,-22,]),'LLAVE_DER':([3,4,5,6,10,14,15,16,23,31,32,33,34,37,39,40,],[-3,-4,-5,-6,-2,-13,-7,-12,-14,-8,-9,-10,-11,-15,40,-22,]),'IGUAL':([7,],[11,]),'PARENTESIS_IZQ':([8,9,],[12,13,]),'NUMERO':([11,13,19,20,21,22,24,25,26,27,28,29,30,],[16,16,16,16,16,16,16,-16,-17,-18,-19,-20,-21,]),'CADENA':([12,],[17,]),'MAS':([14,15,16,18,31,32,33,34,35,],[-13,19,-12,19,19,19,19,19,19,]),'MENOS':([14,15,16,18,31,32,33,34,35,],[-13,20,-12,20,20,20,20,20,20,]),'MULT':([14,15,16,18,31,32,33,34,35,],[-13,21,-12,21,21,21,21,21,21,]),'DIV':([14,15,16,18,31,32,33,34,35,],[-13,22,-12,22,22,22,22,22,22,]),'MAYOR':([14,16,18,31,32,33,34,],[-13,-12,25,-8,-9,-10,-11,]),'MENOR':([14,16,18,31,32,33,34,],[-13,-12,26,-8,-9,-10,-11,]),'MAYOR_IGUAL':([14,16,18,31,32,33,34,],[-13,-12,27,-8,-9,-10,-11,]),'MENOR_IGUAL':([14,16,18,31,32,33,34,],[-13,-12,28,-8,-9,-10,-11,]),'IGUAL_IGUAL':([14,16,18,31,32,33,34,],[-13,-12,29,-8,-9,-10,-11,]),'DIFERENTE':([14,16,18,31,32,33,34,],[-13,-12,30,-8,-9,-10,-11,]),'PARENTESIS_DER':([14,16,17,31,32,33,34,35,],[-13,-12,23,-8,-9,-10,-11,36,]),'LLAVE_IZQ':([36,],[38,]),}
 
@@ -27,26 +27,26 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> programa","S'",1,None,None,None),
-  ('programa -> sentencias','programa',1,'p_programa','Parser.py',16),
-  ('sentencias -> sentencia sentencias','sentencias',2,'p_sentencias','Parser.py',20),
-  ('sentencias -> sentencia','sentencias',1,'p_sentencias','Parser.py',21),
-  ('sentencia -> asignacion','sentencia',1,'p_sentencia','Parser.py',24),
-  ('sentencia -> imprimir','sentencia',1,'p_sentencia','Parser.py',25),
-  ('sentencia -> condicion','sentencia',1,'p_sentencia','Parser.py',26),
-  ('asignacion -> IDENTIFICADOR IGUAL expresion','asignacion',3,'p_asignacion','Parser.py',30),
-  ('expresion -> expresion MAS expresion','expresion',3,'p_expresion','Parser.py',34),
-  ('expresion -> expresion MENOS expresion','expresion',3,'p_expresion','Parser.py',35),
-  ('expresion -> expresion MULT expresion','expresion',3,'p_expresion','Parser.py',36),
-  ('expresion -> expresion DIV expresion','expresion',3,'p_expresion','Parser.py',37),
-  ('expresion -> NUMERO','expresion',1,'p_expresion','Parser.py',38),
-  ('expresion -> IDENTIFICADOR','expresion',1,'p_expresion','Parser.py',39),
-  ('imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER','imprimir',4,'p_imprimir','Parser.py',42),
-  ('condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque','condicion',7,'p_condicion','Parser.py',46),
-  ('comparador -> MAYOR','comparador',1,'p_comparador','Parser.py',49),
-  ('comparador -> MENOR','comparador',1,'p_comparador','Parser.py',50),
-  ('comparador -> MAYOR_IGUAL','comparador',1,'p_comparador','Parser.py',51),
-  ('comparador -> MENOR_IGUAL','comparador',1,'p_comparador','Parser.py',52),
-  ('comparador -> IGUAL_IGUAL','comparador',1,'p_comparador','Parser.py',53),
-  ('comparador -> DIFERENTE','comparador',1,'p_comparador','Parser.py',54),
-  ('bloque -> LLAVE_IZQ sentencias LLAVE_DER','bloque',3,'p_bloque','Parser.py',57),
+  ('programa -> sentencias','programa',1,'p_programa','Parser.py',31),
+  ('sentencias -> sentencia sentencias','sentencias',2,'p_sentencias','Parser.py',40),
+  ('sentencias -> sentencia','sentencias',1,'p_sentencias','Parser.py',41),
+  ('sentencia -> asignacion','sentencia',1,'p_sentencia','Parser.py',49),
+  ('sentencia -> imprimir','sentencia',1,'p_sentencia','Parser.py',50),
+  ('sentencia -> condicion','sentencia',1,'p_sentencia','Parser.py',51),
+  ('asignacion -> IDENTIFICADOR IGUAL expresion','asignacion',3,'p_asignacion','Parser.py',57),
+  ('expresion -> expresion MAS expresion','expresion',3,'p_expresion_binaria','Parser.py',68),
+  ('expresion -> expresion MENOS expresion','expresion',3,'p_expresion_binaria','Parser.py',69),
+  ('expresion -> expresion MULT expresion','expresion',3,'p_expresion_binaria','Parser.py',70),
+  ('expresion -> expresion DIV expresion','expresion',3,'p_expresion_binaria','Parser.py',71),
+  ('expresion -> NUMERO','expresion',1,'p_expresion_numero','Parser.py',84),
+  ('expresion -> IDENTIFICADOR','expresion',1,'p_expresion_identificador','Parser.py',89),
+  ('imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER','imprimir',4,'p_imprimir','Parser.py',94),
+  ('condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque','condicion',7,'p_condicion','Parser.py',101),
+  ('comparador -> MAYOR','comparador',1,'p_comparador','Parser.py',122),
+  ('comparador -> MENOR','comparador',1,'p_comparador','Parser.py',123),
+  ('comparador -> MAYOR_IGUAL','comparador',1,'p_comparador','Parser.py',124),
+  ('comparador -> MENOR_IGUAL','comparador',1,'p_comparador','Parser.py',125),
+  ('comparador -> IGUAL_IGUAL','comparador',1,'p_comparador','Parser.py',126),
+  ('comparador -> DIFERENTE','comparador',1,'p_comparador','Parser.py',127),
+  ('bloque -> LLAVE_IZQ sentencias LLAVE_DER','bloque',3,'p_bloque','Parser.py',132),
 ]
