@@ -5,7 +5,10 @@ import webbrowser
 import os
 
 
-
+def limpiar_salida():
+    salida.config(state='normal')
+    salida.delete("1.0", tk.END)
+    salida.config(state='disabled')
 
 
 def ejecutar_compilador():
@@ -52,6 +55,7 @@ def guardar_resultado():
         with open(archivo, 'w', encoding='utf-8') as f:
             f.write(contenido)
         messagebox.showinfo("Guardado", f"Resultado guardado en {archivo}")
+
 def boton_estilo(nombre, comando):
     return tk.Button(
         frame_botones,
@@ -83,8 +87,7 @@ entrada = scrolledtext.ScrolledText(
     relief=tk.FLAT
 )
 entrada.pack(padx=10, pady=10)
-# Salida del compilador
-#agregar codigo de salida
+
 
 # Botones
 frame_botones = tk.Frame(ventana)
@@ -93,13 +96,25 @@ boton_estilo("Compilar", ejecutar_compilador).pack(side=tk.LEFT, padx=5)
 boton_estilo("Cargar archivo", cargar_archivo).pack(side=tk.LEFT, padx=5)
 boton_estilo("Guardar resultado", guardar_resultado).pack(side=tk.LEFT, padx=5)
 boton_estilo("Ver bitácora HTML", abrir_bitacora_html).pack(side=tk.LEFT, padx=5)
+boton_estilo("Limpiar salida", limpiar_salida).pack(side=tk.LEFT, padx=5)
 #tk.Button(frame_botones, text="Compilar", command=ejecutar_compilador).pack(side=tk.LEFT, padx=5)
 #tk.Button(frame_botones, text="Cargar archivo", command=cargar_archivo).pack(side=tk.LEFT, padx=5)
 #tk.Button(frame_botones, text="Guardar resultado", command=guardar_resultado).pack(side=tk.LEFT, padx=5)
 #tk.Button(frame_botones, text="Ver bitácora HTML", command=abrir_bitacora_html).pack(side=tk.LEFT, padx=5)
 
 # Salida del compilador
-salida = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, width=90, height=10, state='disabled', bg="#f0f0f0")
-salida.pack(pady=10)
+#salida = scrolledtext.ScrolledText(ventana, wrap=tk.WORD, width=90, height=10, state='disabled', bg="#f0f0f0")
+salida = scrolledtext.ScrolledText(
+ ventana,
+    wrap=tk.WORD,
+    width=90,
+    height=10,
+    bg="#121212",
+    fg="#00FF00",
+    insertbackground="#ffffff",
+    font=("Consolas", 11),
+    relief=tk.FLAT
+)
+salida.pack(padx=10, pady=(0, 10))
 
 ventana.mainloop()
