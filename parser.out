@@ -1,0 +1,722 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMA
+    CORCHETE_DER
+    CORCHETE_IZQ
+    FUNC
+    LEER
+    MIENTRAS
+    MOD
+    NO
+    O
+    PARA
+    RANGO
+    RETORNAR
+    SINO
+    Y
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> sentencias
+Rule 2     sentencias -> sentencia sentencias
+Rule 3     sentencias -> sentencia
+Rule 4     sentencia -> asignacion
+Rule 5     sentencia -> imprimir
+Rule 6     sentencia -> condicion
+Rule 7     asignacion -> IDENTIFICADOR IGUAL expresion
+Rule 8     expresion -> expresion MAS expresion
+Rule 9     expresion -> expresion MENOS expresion
+Rule 10    expresion -> expresion MULT expresion
+Rule 11    expresion -> expresion DIV expresion
+Rule 12    expresion -> NUMERO
+Rule 13    expresion -> IDENTIFICADOR
+Rule 14    imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER
+Rule 15    condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque
+Rule 16    comparador -> MAYOR
+Rule 17    comparador -> MENOR
+Rule 18    comparador -> MAYOR_IGUAL
+Rule 19    comparador -> MENOR_IGUAL
+Rule 20    comparador -> IGUAL_IGUAL
+Rule 21    comparador -> DIFERENTE
+Rule 22    bloque -> LLAVE_IZQ sentencias LLAVE_DER
+
+Terminals, with rules where they appear
+
+CADENA               : 14
+COMA                 : 
+CORCHETE_DER         : 
+CORCHETE_IZQ         : 
+DIFERENTE            : 21
+DIV                  : 11
+FUNC                 : 
+IDENTIFICADOR        : 7 13
+IGUAL                : 7
+IGUAL_IGUAL          : 20
+IMPRIMIR             : 14
+LEER                 : 
+LLAVE_DER            : 22
+LLAVE_IZQ            : 22
+MAS                  : 8
+MAYOR                : 16
+MAYOR_IGUAL          : 18
+MENOR                : 17
+MENOR_IGUAL          : 19
+MENOS                : 9
+MIENTRAS             : 
+MOD                  : 
+MULT                 : 10
+NO                   : 
+NUMERO               : 12
+O                    : 
+PARA                 : 
+PARENTESIS_DER       : 14 15
+PARENTESIS_IZQ       : 14 15
+RANGO                : 
+RETORNAR             : 
+SI                   : 15
+SINO                 : 
+Y                    : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 4
+bloque               : 15
+comparador           : 15
+condicion            : 6
+expresion            : 7 8 8 9 9 10 10 11 11 15 15
+imprimir             : 5
+programa             : 0
+sentencia            : 2 3
+sentencias           : 1 2 22
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . sentencias
+    (2) sentencias -> . sentencia sentencias
+    (3) sentencias -> . sentencia
+    (4) sentencia -> . asignacion
+    (5) sentencia -> . imprimir
+    (6) sentencia -> . condicion
+    (7) asignacion -> . IDENTIFICADOR IGUAL expresion
+    (14) imprimir -> . IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER
+    (15) condicion -> . SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque
+
+    IDENTIFICADOR   shift and go to state 7
+    IMPRIMIR        shift and go to state 8
+    SI              shift and go to state 9
+
+    programa                       shift and go to state 1
+    sentencias                     shift and go to state 2
+    sentencia                      shift and go to state 3
+    asignacion                     shift and go to state 4
+    imprimir                       shift and go to state 5
+    condicion                      shift and go to state 6
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> sentencias .
+
+    $end            reduce using rule 1 (programa -> sentencias .)
+
+
+state 3
+
+    (2) sentencias -> sentencia . sentencias
+    (3) sentencias -> sentencia .
+    (2) sentencias -> . sentencia sentencias
+    (3) sentencias -> . sentencia
+    (4) sentencia -> . asignacion
+    (5) sentencia -> . imprimir
+    (6) sentencia -> . condicion
+    (7) asignacion -> . IDENTIFICADOR IGUAL expresion
+    (14) imprimir -> . IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER
+    (15) condicion -> . SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque
+
+    $end            reduce using rule 3 (sentencias -> sentencia .)
+    LLAVE_DER       reduce using rule 3 (sentencias -> sentencia .)
+    IDENTIFICADOR   shift and go to state 7
+    IMPRIMIR        shift and go to state 8
+    SI              shift and go to state 9
+
+    sentencia                      shift and go to state 3
+    sentencias                     shift and go to state 10
+    asignacion                     shift and go to state 4
+    imprimir                       shift and go to state 5
+    condicion                      shift and go to state 6
+
+state 4
+
+    (4) sentencia -> asignacion .
+
+    IDENTIFICADOR   reduce using rule 4 (sentencia -> asignacion .)
+    IMPRIMIR        reduce using rule 4 (sentencia -> asignacion .)
+    SI              reduce using rule 4 (sentencia -> asignacion .)
+    $end            reduce using rule 4 (sentencia -> asignacion .)
+    LLAVE_DER       reduce using rule 4 (sentencia -> asignacion .)
+
+
+state 5
+
+    (5) sentencia -> imprimir .
+
+    IDENTIFICADOR   reduce using rule 5 (sentencia -> imprimir .)
+    IMPRIMIR        reduce using rule 5 (sentencia -> imprimir .)
+    SI              reduce using rule 5 (sentencia -> imprimir .)
+    $end            reduce using rule 5 (sentencia -> imprimir .)
+    LLAVE_DER       reduce using rule 5 (sentencia -> imprimir .)
+
+
+state 6
+
+    (6) sentencia -> condicion .
+
+    IDENTIFICADOR   reduce using rule 6 (sentencia -> condicion .)
+    IMPRIMIR        reduce using rule 6 (sentencia -> condicion .)
+    SI              reduce using rule 6 (sentencia -> condicion .)
+    $end            reduce using rule 6 (sentencia -> condicion .)
+    LLAVE_DER       reduce using rule 6 (sentencia -> condicion .)
+
+
+state 7
+
+    (7) asignacion -> IDENTIFICADOR . IGUAL expresion
+
+    IGUAL           shift and go to state 11
+
+
+state 8
+
+    (14) imprimir -> IMPRIMIR . PARENTESIS_IZQ CADENA PARENTESIS_DER
+
+    PARENTESIS_IZQ  shift and go to state 12
+
+
+state 9
+
+    (15) condicion -> SI . PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque
+
+    PARENTESIS_IZQ  shift and go to state 13
+
+
+state 10
+
+    (2) sentencias -> sentencia sentencias .
+
+    $end            reduce using rule 2 (sentencias -> sentencia sentencias .)
+    LLAVE_DER       reduce using rule 2 (sentencias -> sentencia sentencias .)
+
+
+state 11
+
+    (7) asignacion -> IDENTIFICADOR IGUAL . expresion
+    (8) expresion -> . expresion MAS expresion
+    (9) expresion -> . expresion MENOS expresion
+    (10) expresion -> . expresion MULT expresion
+    (11) expresion -> . expresion DIV expresion
+    (12) expresion -> . NUMERO
+    (13) expresion -> . IDENTIFICADOR
+
+    NUMERO          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 14
+
+    expresion                      shift and go to state 15
+
+state 12
+
+    (14) imprimir -> IMPRIMIR PARENTESIS_IZQ . CADENA PARENTESIS_DER
+
+    CADENA          shift and go to state 17
+
+
+state 13
+
+    (15) condicion -> SI PARENTESIS_IZQ . expresion comparador expresion PARENTESIS_DER bloque
+    (8) expresion -> . expresion MAS expresion
+    (9) expresion -> . expresion MENOS expresion
+    (10) expresion -> . expresion MULT expresion
+    (11) expresion -> . expresion DIV expresion
+    (12) expresion -> . NUMERO
+    (13) expresion -> . IDENTIFICADOR
+
+    NUMERO          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 14
+
+    expresion                      shift and go to state 18
+
+state 14
+
+    (13) expresion -> IDENTIFICADOR .
+
+    MAS             reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    MENOS           reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    MULT            reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    DIV             reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    IDENTIFICADOR   reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    IMPRIMIR        reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    SI              reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    $end            reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    LLAVE_DER       reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    MAYOR           reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    MENOR           reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    MAYOR_IGUAL     reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    MENOR_IGUAL     reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    IGUAL_IGUAL     reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    DIFERENTE       reduce using rule 13 (expresion -> IDENTIFICADOR .)
+    PARENTESIS_DER  reduce using rule 13 (expresion -> IDENTIFICADOR .)
+
+
+state 15
+
+    (7) asignacion -> IDENTIFICADOR IGUAL expresion .
+    (8) expresion -> expresion . MAS expresion
+    (9) expresion -> expresion . MENOS expresion
+    (10) expresion -> expresion . MULT expresion
+    (11) expresion -> expresion . DIV expresion
+
+    IDENTIFICADOR   reduce using rule 7 (asignacion -> IDENTIFICADOR IGUAL expresion .)
+    IMPRIMIR        reduce using rule 7 (asignacion -> IDENTIFICADOR IGUAL expresion .)
+    SI              reduce using rule 7 (asignacion -> IDENTIFICADOR IGUAL expresion .)
+    $end            reduce using rule 7 (asignacion -> IDENTIFICADOR IGUAL expresion .)
+    LLAVE_DER       reduce using rule 7 (asignacion -> IDENTIFICADOR IGUAL expresion .)
+    MAS             shift and go to state 19
+    MENOS           shift and go to state 20
+    MULT            shift and go to state 21
+    DIV             shift and go to state 22
+
+
+state 16
+
+    (12) expresion -> NUMERO .
+
+    MAS             reduce using rule 12 (expresion -> NUMERO .)
+    MENOS           reduce using rule 12 (expresion -> NUMERO .)
+    MULT            reduce using rule 12 (expresion -> NUMERO .)
+    DIV             reduce using rule 12 (expresion -> NUMERO .)
+    IDENTIFICADOR   reduce using rule 12 (expresion -> NUMERO .)
+    IMPRIMIR        reduce using rule 12 (expresion -> NUMERO .)
+    SI              reduce using rule 12 (expresion -> NUMERO .)
+    $end            reduce using rule 12 (expresion -> NUMERO .)
+    LLAVE_DER       reduce using rule 12 (expresion -> NUMERO .)
+    MAYOR           reduce using rule 12 (expresion -> NUMERO .)
+    MENOR           reduce using rule 12 (expresion -> NUMERO .)
+    MAYOR_IGUAL     reduce using rule 12 (expresion -> NUMERO .)
+    MENOR_IGUAL     reduce using rule 12 (expresion -> NUMERO .)
+    IGUAL_IGUAL     reduce using rule 12 (expresion -> NUMERO .)
+    DIFERENTE       reduce using rule 12 (expresion -> NUMERO .)
+    PARENTESIS_DER  reduce using rule 12 (expresion -> NUMERO .)
+
+
+state 17
+
+    (14) imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA . PARENTESIS_DER
+
+    PARENTESIS_DER  shift and go to state 23
+
+
+state 18
+
+    (15) condicion -> SI PARENTESIS_IZQ expresion . comparador expresion PARENTESIS_DER bloque
+    (8) expresion -> expresion . MAS expresion
+    (9) expresion -> expresion . MENOS expresion
+    (10) expresion -> expresion . MULT expresion
+    (11) expresion -> expresion . DIV expresion
+    (16) comparador -> . MAYOR
+    (17) comparador -> . MENOR
+    (18) comparador -> . MAYOR_IGUAL
+    (19) comparador -> . MENOR_IGUAL
+    (20) comparador -> . IGUAL_IGUAL
+    (21) comparador -> . DIFERENTE
+
+    MAS             shift and go to state 19
+    MENOS           shift and go to state 20
+    MULT            shift and go to state 21
+    DIV             shift and go to state 22
+    MAYOR           shift and go to state 25
+    MENOR           shift and go to state 26
+    MAYOR_IGUAL     shift and go to state 27
+    MENOR_IGUAL     shift and go to state 28
+    IGUAL_IGUAL     shift and go to state 29
+    DIFERENTE       shift and go to state 30
+
+    comparador                     shift and go to state 24
+
+state 19
+
+    (8) expresion -> expresion MAS . expresion
+    (8) expresion -> . expresion MAS expresion
+    (9) expresion -> . expresion MENOS expresion
+    (10) expresion -> . expresion MULT expresion
+    (11) expresion -> . expresion DIV expresion
+    (12) expresion -> . NUMERO
+    (13) expresion -> . IDENTIFICADOR
+
+    NUMERO          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 14
+
+    expresion                      shift and go to state 31
+
+state 20
+
+    (9) expresion -> expresion MENOS . expresion
+    (8) expresion -> . expresion MAS expresion
+    (9) expresion -> . expresion MENOS expresion
+    (10) expresion -> . expresion MULT expresion
+    (11) expresion -> . expresion DIV expresion
+    (12) expresion -> . NUMERO
+    (13) expresion -> . IDENTIFICADOR
+
+    NUMERO          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 14
+
+    expresion                      shift and go to state 32
+
+state 21
+
+    (10) expresion -> expresion MULT . expresion
+    (8) expresion -> . expresion MAS expresion
+    (9) expresion -> . expresion MENOS expresion
+    (10) expresion -> . expresion MULT expresion
+    (11) expresion -> . expresion DIV expresion
+    (12) expresion -> . NUMERO
+    (13) expresion -> . IDENTIFICADOR
+
+    NUMERO          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 14
+
+    expresion                      shift and go to state 33
+
+state 22
+
+    (11) expresion -> expresion DIV . expresion
+    (8) expresion -> . expresion MAS expresion
+    (9) expresion -> . expresion MENOS expresion
+    (10) expresion -> . expresion MULT expresion
+    (11) expresion -> . expresion DIV expresion
+    (12) expresion -> . NUMERO
+    (13) expresion -> . IDENTIFICADOR
+
+    NUMERO          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 14
+
+    expresion                      shift and go to state 34
+
+state 23
+
+    (14) imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER .
+
+    IDENTIFICADOR   reduce using rule 14 (imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER .)
+    IMPRIMIR        reduce using rule 14 (imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER .)
+    SI              reduce using rule 14 (imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER .)
+    $end            reduce using rule 14 (imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER .)
+    LLAVE_DER       reduce using rule 14 (imprimir -> IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER .)
+
+
+state 24
+
+    (15) condicion -> SI PARENTESIS_IZQ expresion comparador . expresion PARENTESIS_DER bloque
+    (8) expresion -> . expresion MAS expresion
+    (9) expresion -> . expresion MENOS expresion
+    (10) expresion -> . expresion MULT expresion
+    (11) expresion -> . expresion DIV expresion
+    (12) expresion -> . NUMERO
+    (13) expresion -> . IDENTIFICADOR
+
+    NUMERO          shift and go to state 16
+    IDENTIFICADOR   shift and go to state 14
+
+    expresion                      shift and go to state 35
+
+state 25
+
+    (16) comparador -> MAYOR .
+
+    NUMERO          reduce using rule 16 (comparador -> MAYOR .)
+    IDENTIFICADOR   reduce using rule 16 (comparador -> MAYOR .)
+
+
+state 26
+
+    (17) comparador -> MENOR .
+
+    NUMERO          reduce using rule 17 (comparador -> MENOR .)
+    IDENTIFICADOR   reduce using rule 17 (comparador -> MENOR .)
+
+
+state 27
+
+    (18) comparador -> MAYOR_IGUAL .
+
+    NUMERO          reduce using rule 18 (comparador -> MAYOR_IGUAL .)
+    IDENTIFICADOR   reduce using rule 18 (comparador -> MAYOR_IGUAL .)
+
+
+state 28
+
+    (19) comparador -> MENOR_IGUAL .
+
+    NUMERO          reduce using rule 19 (comparador -> MENOR_IGUAL .)
+    IDENTIFICADOR   reduce using rule 19 (comparador -> MENOR_IGUAL .)
+
+
+state 29
+
+    (20) comparador -> IGUAL_IGUAL .
+
+    NUMERO          reduce using rule 20 (comparador -> IGUAL_IGUAL .)
+    IDENTIFICADOR   reduce using rule 20 (comparador -> IGUAL_IGUAL .)
+
+
+state 30
+
+    (21) comparador -> DIFERENTE .
+
+    NUMERO          reduce using rule 21 (comparador -> DIFERENTE .)
+    IDENTIFICADOR   reduce using rule 21 (comparador -> DIFERENTE .)
+
+
+state 31
+
+    (8) expresion -> expresion MAS expresion .
+    (8) expresion -> expresion . MAS expresion
+    (9) expresion -> expresion . MENOS expresion
+    (10) expresion -> expresion . MULT expresion
+    (11) expresion -> expresion . DIV expresion
+
+  ! shift/reduce conflict for MAS resolved as shift
+  ! shift/reduce conflict for MENOS resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+    IDENTIFICADOR   reduce using rule 8 (expresion -> expresion MAS expresion .)
+    IMPRIMIR        reduce using rule 8 (expresion -> expresion MAS expresion .)
+    SI              reduce using rule 8 (expresion -> expresion MAS expresion .)
+    $end            reduce using rule 8 (expresion -> expresion MAS expresion .)
+    LLAVE_DER       reduce using rule 8 (expresion -> expresion MAS expresion .)
+    MAYOR           reduce using rule 8 (expresion -> expresion MAS expresion .)
+    MENOR           reduce using rule 8 (expresion -> expresion MAS expresion .)
+    MAYOR_IGUAL     reduce using rule 8 (expresion -> expresion MAS expresion .)
+    MENOR_IGUAL     reduce using rule 8 (expresion -> expresion MAS expresion .)
+    IGUAL_IGUAL     reduce using rule 8 (expresion -> expresion MAS expresion .)
+    DIFERENTE       reduce using rule 8 (expresion -> expresion MAS expresion .)
+    PARENTESIS_DER  reduce using rule 8 (expresion -> expresion MAS expresion .)
+    MAS             shift and go to state 19
+    MENOS           shift and go to state 20
+    MULT            shift and go to state 21
+    DIV             shift and go to state 22
+
+  ! MAS             [ reduce using rule 8 (expresion -> expresion MAS expresion .) ]
+  ! MENOS           [ reduce using rule 8 (expresion -> expresion MAS expresion .) ]
+  ! MULT            [ reduce using rule 8 (expresion -> expresion MAS expresion .) ]
+  ! DIV             [ reduce using rule 8 (expresion -> expresion MAS expresion .) ]
+
+
+state 32
+
+    (9) expresion -> expresion MENOS expresion .
+    (8) expresion -> expresion . MAS expresion
+    (9) expresion -> expresion . MENOS expresion
+    (10) expresion -> expresion . MULT expresion
+    (11) expresion -> expresion . DIV expresion
+
+  ! shift/reduce conflict for MAS resolved as shift
+  ! shift/reduce conflict for MENOS resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+    IDENTIFICADOR   reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    IMPRIMIR        reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    SI              reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    $end            reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    LLAVE_DER       reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    MAYOR           reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    MENOR           reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    MAYOR_IGUAL     reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    MENOR_IGUAL     reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    IGUAL_IGUAL     reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    DIFERENTE       reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    PARENTESIS_DER  reduce using rule 9 (expresion -> expresion MENOS expresion .)
+    MAS             shift and go to state 19
+    MENOS           shift and go to state 20
+    MULT            shift and go to state 21
+    DIV             shift and go to state 22
+
+  ! MAS             [ reduce using rule 9 (expresion -> expresion MENOS expresion .) ]
+  ! MENOS           [ reduce using rule 9 (expresion -> expresion MENOS expresion .) ]
+  ! MULT            [ reduce using rule 9 (expresion -> expresion MENOS expresion .) ]
+  ! DIV             [ reduce using rule 9 (expresion -> expresion MENOS expresion .) ]
+
+
+state 33
+
+    (10) expresion -> expresion MULT expresion .
+    (8) expresion -> expresion . MAS expresion
+    (9) expresion -> expresion . MENOS expresion
+    (10) expresion -> expresion . MULT expresion
+    (11) expresion -> expresion . DIV expresion
+
+  ! shift/reduce conflict for MAS resolved as shift
+  ! shift/reduce conflict for MENOS resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+    IDENTIFICADOR   reduce using rule 10 (expresion -> expresion MULT expresion .)
+    IMPRIMIR        reduce using rule 10 (expresion -> expresion MULT expresion .)
+    SI              reduce using rule 10 (expresion -> expresion MULT expresion .)
+    $end            reduce using rule 10 (expresion -> expresion MULT expresion .)
+    LLAVE_DER       reduce using rule 10 (expresion -> expresion MULT expresion .)
+    MAYOR           reduce using rule 10 (expresion -> expresion MULT expresion .)
+    MENOR           reduce using rule 10 (expresion -> expresion MULT expresion .)
+    MAYOR_IGUAL     reduce using rule 10 (expresion -> expresion MULT expresion .)
+    MENOR_IGUAL     reduce using rule 10 (expresion -> expresion MULT expresion .)
+    IGUAL_IGUAL     reduce using rule 10 (expresion -> expresion MULT expresion .)
+    DIFERENTE       reduce using rule 10 (expresion -> expresion MULT expresion .)
+    PARENTESIS_DER  reduce using rule 10 (expresion -> expresion MULT expresion .)
+    MAS             shift and go to state 19
+    MENOS           shift and go to state 20
+    MULT            shift and go to state 21
+    DIV             shift and go to state 22
+
+  ! MAS             [ reduce using rule 10 (expresion -> expresion MULT expresion .) ]
+  ! MENOS           [ reduce using rule 10 (expresion -> expresion MULT expresion .) ]
+  ! MULT            [ reduce using rule 10 (expresion -> expresion MULT expresion .) ]
+  ! DIV             [ reduce using rule 10 (expresion -> expresion MULT expresion .) ]
+
+
+state 34
+
+    (11) expresion -> expresion DIV expresion .
+    (8) expresion -> expresion . MAS expresion
+    (9) expresion -> expresion . MENOS expresion
+    (10) expresion -> expresion . MULT expresion
+    (11) expresion -> expresion . DIV expresion
+
+  ! shift/reduce conflict for MAS resolved as shift
+  ! shift/reduce conflict for MENOS resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+    IDENTIFICADOR   reduce using rule 11 (expresion -> expresion DIV expresion .)
+    IMPRIMIR        reduce using rule 11 (expresion -> expresion DIV expresion .)
+    SI              reduce using rule 11 (expresion -> expresion DIV expresion .)
+    $end            reduce using rule 11 (expresion -> expresion DIV expresion .)
+    LLAVE_DER       reduce using rule 11 (expresion -> expresion DIV expresion .)
+    MAYOR           reduce using rule 11 (expresion -> expresion DIV expresion .)
+    MENOR           reduce using rule 11 (expresion -> expresion DIV expresion .)
+    MAYOR_IGUAL     reduce using rule 11 (expresion -> expresion DIV expresion .)
+    MENOR_IGUAL     reduce using rule 11 (expresion -> expresion DIV expresion .)
+    IGUAL_IGUAL     reduce using rule 11 (expresion -> expresion DIV expresion .)
+    DIFERENTE       reduce using rule 11 (expresion -> expresion DIV expresion .)
+    PARENTESIS_DER  reduce using rule 11 (expresion -> expresion DIV expresion .)
+    MAS             shift and go to state 19
+    MENOS           shift and go to state 20
+    MULT            shift and go to state 21
+    DIV             shift and go to state 22
+
+  ! MAS             [ reduce using rule 11 (expresion -> expresion DIV expresion .) ]
+  ! MENOS           [ reduce using rule 11 (expresion -> expresion DIV expresion .) ]
+  ! MULT            [ reduce using rule 11 (expresion -> expresion DIV expresion .) ]
+  ! DIV             [ reduce using rule 11 (expresion -> expresion DIV expresion .) ]
+
+
+state 35
+
+    (15) condicion -> SI PARENTESIS_IZQ expresion comparador expresion . PARENTESIS_DER bloque
+    (8) expresion -> expresion . MAS expresion
+    (9) expresion -> expresion . MENOS expresion
+    (10) expresion -> expresion . MULT expresion
+    (11) expresion -> expresion . DIV expresion
+
+    PARENTESIS_DER  shift and go to state 36
+    MAS             shift and go to state 19
+    MENOS           shift and go to state 20
+    MULT            shift and go to state 21
+    DIV             shift and go to state 22
+
+
+state 36
+
+    (15) condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER . bloque
+    (22) bloque -> . LLAVE_IZQ sentencias LLAVE_DER
+
+    LLAVE_IZQ       shift and go to state 38
+
+    bloque                         shift and go to state 37
+
+state 37
+
+    (15) condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque .
+
+    IDENTIFICADOR   reduce using rule 15 (condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque .)
+    IMPRIMIR        reduce using rule 15 (condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque .)
+    SI              reduce using rule 15 (condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque .)
+    $end            reduce using rule 15 (condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque .)
+    LLAVE_DER       reduce using rule 15 (condicion -> SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque .)
+
+
+state 38
+
+    (22) bloque -> LLAVE_IZQ . sentencias LLAVE_DER
+    (2) sentencias -> . sentencia sentencias
+    (3) sentencias -> . sentencia
+    (4) sentencia -> . asignacion
+    (5) sentencia -> . imprimir
+    (6) sentencia -> . condicion
+    (7) asignacion -> . IDENTIFICADOR IGUAL expresion
+    (14) imprimir -> . IMPRIMIR PARENTESIS_IZQ CADENA PARENTESIS_DER
+    (15) condicion -> . SI PARENTESIS_IZQ expresion comparador expresion PARENTESIS_DER bloque
+
+    IDENTIFICADOR   shift and go to state 7
+    IMPRIMIR        shift and go to state 8
+    SI              shift and go to state 9
+
+    sentencias                     shift and go to state 39
+    sentencia                      shift and go to state 3
+    asignacion                     shift and go to state 4
+    imprimir                       shift and go to state 5
+    condicion                      shift and go to state 6
+
+state 39
+
+    (22) bloque -> LLAVE_IZQ sentencias . LLAVE_DER
+
+    LLAVE_DER       shift and go to state 40
+
+
+state 40
+
+    (22) bloque -> LLAVE_IZQ sentencias LLAVE_DER .
+
+    IDENTIFICADOR   reduce using rule 22 (bloque -> LLAVE_IZQ sentencias LLAVE_DER .)
+    IMPRIMIR        reduce using rule 22 (bloque -> LLAVE_IZQ sentencias LLAVE_DER .)
+    SI              reduce using rule 22 (bloque -> LLAVE_IZQ sentencias LLAVE_DER .)
+    $end            reduce using rule 22 (bloque -> LLAVE_IZQ sentencias LLAVE_DER .)
+    LLAVE_DER       reduce using rule 22 (bloque -> LLAVE_IZQ sentencias LLAVE_DER .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for MAS in state 31 resolved as shift
+WARNING: shift/reduce conflict for MENOS in state 31 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 31 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 31 resolved as shift
+WARNING: shift/reduce conflict for MAS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MENOS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 32 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 32 resolved as shift
+WARNING: shift/reduce conflict for MAS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MENOS in state 33 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 33 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 33 resolved as shift
+WARNING: shift/reduce conflict for MAS in state 34 resolved as shift
+WARNING: shift/reduce conflict for MENOS in state 34 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 34 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 34 resolved as shift

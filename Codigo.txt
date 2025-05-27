@@ -1,0 +1,26 @@
+# Asignaciones válidas
+x = 5
+y = 10
+resultado = x + y
+
+# Impresión de un mensaje
+imprimir("El resultado es:")
+
+# Condicional válida
+si (resultado > 10) {
+    imprimir("Resultado mayor que 10")
+}
+
+# Condicional con error de operador (errores léxicos y sintácticos)
+si (x => y) {
+    imprimir("Esto no se debería imprimir")
+}
+
+# Error de asignación con doble igual
+x == 5
+
+# Expresión mal formada
+z = x +
+
+# Cadena sin comillas
+imprimir(Hola)
