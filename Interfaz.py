@@ -116,5 +116,5 @@ salida = scrolledtext.ScrolledText(
     relief=tk.FLAT
 )
 salida.pack(padx=10, pady=(0, 10))
-
+#falta c++
 ventana.mainloop()
