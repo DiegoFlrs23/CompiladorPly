@@ -84,7 +84,7 @@ entrada = scrolledtext.ScrolledText(
 )
 entrada.pack(padx=10, pady=10)
 # Salida del compilador
-
+#agregar codigo de salida
 
 # Botones
 frame_botones = tk.Frame(ventana)
