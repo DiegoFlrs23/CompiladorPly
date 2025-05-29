@@ -276,8 +276,10 @@ def probar_lexer(codigo):
             print(err)
     return tokens_encontrados, errores_lexicos
 
-
+lexer = lex.lex()
+analizador_lexico = lexer
 if __name__ == '__main__':
+
     # Ejemplo de uso para probar el lexer directamente
     test_code = """
     int x = 10;

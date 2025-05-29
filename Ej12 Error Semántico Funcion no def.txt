@@ -1,5 +1,0 @@
-# Característica: Ejemplo de Error Semántico (Función no Declarada)
-# Este bloque está diseñado para generar un error semántico si se analiza.
-# int ex12_resultado_llamada
-# ex12_resultado_llamada = ex12_funcion_inexistente(10, 20)
-# imprimir(ex12_resultado_llamada)

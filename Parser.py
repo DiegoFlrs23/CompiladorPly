@@ -241,48 +241,107 @@ class GeneradorCPP:
         current_function_body = []
         current_function_name = None
         in_function_def = False
+        for_loop_stack = []
 
-        # Primero, escanear para declaraciones de array globales para C++
-        # (Esto es una simplificación, la gestión de scopes debería ser más robusta)
+        # Escanear para declaraciones de array globales para C++
         cpp_global_declarations = []
         for simbolo, detalles in self.contexto_compilador.tabla_simbolos.items():
             if detalles['scope'] == 'global' and detalles['tipo'].startswith('array('):
-                # e.g. array(int, 10) for 'arr'
                 match = re.match(r'array\((\w+),\s*(\d+)\)', detalles['tipo'])
                 if match:
                     base_type_str = self._map_type_to_cpp(match.group(1))
                     size = match.group(2)
-                    # Evitar redeclarar si ya está en _procesar_codigo (aunque aquí es para globales)
-                    if simbolo not in self.declared_variables_main:  # Usamos declared_variables_main por simplicidad
+                    if simbolo not in self.declared_variables_main:
                         cpp_global_declarations.append(f"{base_type_str} {simbolo}[{size}];")
                         self.declared_variables_main.add(simbolo)
 
         for linea_num, linea_raw in enumerate(self.codigo_3addr):
-            linea = linea_raw.split('#')[0].strip()  # Quitar comentarios y espacios
+            linea = linea_raw.split('#')[0].strip()
             if not linea:
                 continue
 
             if linea.startswith("INICIO_PROGRAMA") or linea.startswith("FIN_PROGRAMA"):
                 continue
 
-            if linea.startswith("FUNC"):  # e.g. FUNC miFuncion:
+            # Manejar el inicio de un bucle PARA
+            if linea.startswith("# Inicio bucle PARA"):
+                loop_info = {
+                    'init': [],
+                    'cond': "",
+                    'incr': [],
+                    'body': [],
+                    'start_label': contexto.nueva_etiqueta(),
+                    'cond_label': contexto.nueva_etiqueta(),
+                    'incr_label': contexto.nueva_etiqueta(),
+                    'end_label': contexto.nueva_etiqueta()
+                }
+                for_loop_stack.append(loop_info)
+                continue
+
+            # Manejar el fin de un bucle PARA
+            if for_loop_stack and linea.startswith("# Fin bucle PARA"):
+                loop_info = for_loop_stack.pop()
+                target_body = current_function_body if in_function_def else self.main_body_lines
+
+                # Parte de inicialización
+                for init_line in loop_info['init']:
+                    target_body.append(f"    {init_line}")
+
+                # Etiqueta de inicio (para la condición)
+                target_body.append(f"{loop_info['cond_label']}:")
+
+                # Condición del bucle
+                if loop_info['cond']:
+                    target_body.append(f"    {loop_info['cond']}")
+                    # Extraer la variable condicional de la condición
+                    cond_var = loop_info['cond'].split('=')[0].strip()
+                    target_body.append(f"    if (!{cond_var}) goto {loop_info['end_label']};")
+
+                # Cuerpo del bucle
+                for body_line in loop_info['body']:
+                    target_body.append(f"    {body_line}")
+
+                # Parte de incremento
+                target_body.append(f"{loop_info['incr_label']}:")
+                for incr_line in loop_info['incr']:
+                    target_body.append(f"    {incr_line}")
+
+                # Volver a evaluar la condición
+                target_body.append(f"    goto {loop_info['cond_label']};")
+
+                # Fin del bucle
+                target_body.append(f"{loop_info['end_label']}:")
+                continue
+
+            # Si estamos procesando un bucle PARA, capturamos sus partes
+            if for_loop_stack:
+                loop_info = for_loop_stack[-1]
+                if "Condición PARA" in linea_raw:
+                    loop_info['cond'] = linea
+                elif "Incremento PARA" in linea_raw:
+                    loop_info['incr'].append(linea)
+                elif "Valor inicial para" in linea_raw or "Asignar valor inicial" in linea_raw:
+                    loop_info['init'].append(linea)
+                else:
+                    loop_info['body'].append(linea)
+                continue
+
+            # Resto del procesamiento (funciones, declaraciones, etc.)
+            if linea.startswith("FUNC"):
                 current_function_name = linea.split()[1].replace(':', '').strip()
                 self.declared_variables_func[current_function_name] = set()
                 self.temporaries_to_declare_func[current_function_name] = {}
 
                 func_info = self.contexto_compilador.funciones.get(current_function_name)
                 if not func_info:
-                    # Esto sería un error interno si el parser permitió esto
                     self.contexto_compilador.errores.append(
                         f"Error C++ Gen: Información no encontrada para función {current_function_name}")
-                    # Usar una firma por defecto para intentar continuar
                     self.function_definitions.append(f"void {current_function_name}() {{ // Error: Info no encontrada")
                 else:
                     ret_type_str = self._map_type_to_cpp(func_info['tipo_retorno'])
                     params_cpp = []
                     for p_tipo, p_nombre in func_info['params']:
                         params_cpp.append(f"{self._map_type_to_cpp(p_tipo)} {p_nombre}")
-                        # Registrar parámetros como declarados en el scope de la función
                         self.declared_variables_func[current_function_name].add(p_nombre)
 
                     self.function_definitions.append(
@@ -290,11 +349,10 @@ class GeneradorCPP:
                 in_function_def = True
                 continue
             elif linea.startswith("END_FUNC"):
-                # Declarar temporales de la función al inicio de su cuerpo
                 if current_function_name and current_function_name in self.temporaries_to_declare_func:
                     temp_decls = []
                     for temp_var, temp_type_str in self.temporaries_to_declare_func[current_function_name].items():
-                        if temp_var not in self.declared_variables_func[current_function_name]:  # No redeclarar
+                        if temp_var not in self.declared_variables_func[current_function_name]:
                             temp_decls.append(f"    {self._map_type_to_cpp(temp_type_str)} {temp_var};")
                     self.function_definitions.extend(temp_decls)
 
@@ -304,7 +362,7 @@ class GeneradorCPP:
                 current_function_name = None
                 current_function_body = []
                 continue
-            elif linea.startswith("RETURN"):  # e.g. RETURN t1
+            elif linea.startswith("RETURN"):
                 val_retorno = linea.split('RETURN')[1].strip()
                 (current_function_body if in_function_def else self.main_body_lines).append(
                     f"    return {val_retorno};")
@@ -317,96 +375,79 @@ class GeneradorCPP:
             target_temp_to_declare = self.temporaries_to_declare_func.get(current_function_name,
                                                                           {}) if in_function_def else self.temporaries_to_declare_main
 
-            if linea.startswith("declare "):  # declare tipo var o declare array tipo var[size]
+            if linea.startswith("declare "):
                 parts = linea.split()
-                # parts[0] es 'declare'
-                if parts[1] == "array":  # declare array int arr[10]
-                    # tipo_base var_name[size]
+                if parts[1] == "array":
                     declared_type_str = self._map_type_to_cpp(parts[2])
-                    # var_name[size] -> var_name
-                    array_name_full = parts[3]  # arr[10]
+                    array_name_full = parts[3]
                     array_name = array_name_full.split('[')[0]
                     if array_name not in target_declared_vars and not array_name.startswith('t'):
-                        # La declaración de arrays globales ya se hizo, esto es para main/funciones
-                        # Si es global, self.declared_variables_main ya lo tiene.
-                        # Aquí es para declaraciones dentro de main o funciones (si se permite)
                         if not (current_function_name is None and array_name in self.declared_variables_main):
                             target_body.append(f"    {declared_type_str} {array_name_full};")
                             target_declared_vars.add(array_name)
-                else:  # declare tipo var
+                else:
                     declared_type_str = self._map_type_to_cpp(parts[1])
                     declared_var = parts[2]
                     if declared_var not in target_declared_vars and not declared_var.startswith('t'):
                         target_body.append(f"    {declared_type_str} {declared_var};")
                         target_declared_vars.add(declared_var)
 
-                    if len(parts) > 3 and parts[3] == '=':  # ... = val
+                    if len(parts) > 3 and parts[3] == '=':
                         initial_value = parts[4]
-                        # Si es string literal, necesita comillas en C++
                         simbolo_var = self.contexto_compilador.obtener_simbolo(declared_var, current_function_name)
                         if simbolo_var and simbolo_var['tipo'] == 'string' and not initial_value.startswith('"'):
                             initial_value = f'"{initial_value}"'
                         target_body.append(f"    {declared_var} = {initial_value};")
                 continue
 
-            if "if not" in linea:  # if not cond_var goto etiqueta
+            if "if not" in linea:
                 parts = linea.split()
                 cond_var = parts[2]
                 etiqueta = parts[-1]
                 target_body.append(f"    if (!({cond_var})) goto {etiqueta};")
-            elif linea.endswith(":"):  # Etiqueta:
-                target_body.append(linea)  # Sin indentación para etiquetas
-            elif linea.startswith("goto "):  # goto etiqueta
+            elif linea.endswith(":"):
+                target_body.append(linea)
+            elif linea.startswith("goto "):
                 target_body.append(f"    {linea};")
             elif linea.startswith("imprimir "):
                 value_to_print = linea.split('imprimir', 1)[1].strip()
-                # Chequear si es un booleano para usar std::boolalpha
-                # Necesitamos el tipo real de value_to_print
                 tipo_val = self._determinar_tipo_cpp_expr(value_to_print, current_function_name)
                 if tipo_val == 'bool':
                     target_body.append(f'    std::cout << std::boolalpha << {value_to_print} << std::endl;')
                 elif tipo_val == 'std::string' and not (
                         value_to_print.startswith('"') and value_to_print.endswith('"')):
-                    # Si es una variable string, no necesita comillas extra. Si es un literal ya las tiene.
-                    # Esta heurística es para el caso de que el 3AC tenga "imprimir mi_cadena_literal" sin comillas
-                    # pero el parser debería añadir las comillas para literales de cadena.
                     simbolo = self.contexto_compilador.obtener_simbolo(value_to_print, current_function_name)
-                    if not simbolo:  # Es un literal que no tiene comillas
+                    if not simbolo:
                         target_body.append(f'    std::cout << "{value_to_print}" << std::endl;')
-                    else:  # Es una variable
+                    else:
                         target_body.append(f'    std::cout << {value_to_print} << std::endl;')
                 else:
                     target_body.append(f'    std::cout << {value_to_print} << std::endl;')
-
             elif linea.startswith("leer "):
                 var_to_read = linea.split('leer', 1)[1].strip()
                 target_body.append(f'    std::cin >> {var_to_read};')
-
-            elif "call" in linea:  # tX = call func, [args] OR call func, [args]
+            elif "call" in linea:
                 assign_var_cpp = None
                 if '=' in linea:
                     assign_part, call_part = linea.split('=', 1)
                     assign_var_3addr = assign_part.strip()
                     call_str = call_part.strip()
 
-                    # Determinar tipo del temporal asignado a partir del tipo de retorno de la función
                     func_name_call = call_str.split('call')[1].strip().split(',')[0].strip()
                     func_info = self.contexto_compilador.funciones.get(func_name_call)
-                    ret_type = 'auto'  # Default
+                    ret_type = 'auto'
                     if func_info:
                         ret_type = self._map_type_to_cpp(func_info['tipo_retorno'])
-                    else:  # Función no encontrada (e.g. print, etc. o error)
+                    else:
                         self.contexto_compilador.errores.append(
                             f"Advertencia C++ Gen: Función '{func_name_call}' no encontrada en el contexto para determinar tipo de retorno de '{assign_var_3addr}'. Asumiendo 'auto'.")
 
                     target_temp_to_declare[assign_var_3addr] = ret_type
                     assign_var_cpp = assign_var_3addr
-                else:  # Llamada sin asignación
+                else:
                     call_str = linea
 
-                # Extraer nombre de función y argumentos
-                # call func_name, [arg1, arg2]
-                actual_call_part = call_str.split('call', 1)[1].strip()  # func_name, [arg1, arg2]
+                actual_call_part = call_str.split('call', 1)[1].strip()
                 func_name_call, args_3addr_str_with_brackets = actual_call_part.split(',', 1)
                 func_name_call = func_name_call.strip()
                 args_3addr_str = args_3addr_str_with_brackets.strip().lstrip('[').rstrip(']')
@@ -418,59 +459,51 @@ class GeneradorCPP:
                     target_body.append(f"    {assign_var_cpp} = {cpp_call};")
                 else:
                     target_body.append(f"    {cpp_call};")
-
-            elif "=" in linea:  # Asignaciones generales: var = expr, tX = expr, arr[tidx] = tval
+            elif "=" in linea:
                 lhs, rhs = linea.split('=', 1)
                 lhs = lhs.strip()
                 rhs = rhs.strip()
 
-                # Si LHS es un temporal, necesitamos declarar su tipo
+                # Verificar que LHS sea un identificador válido
+                if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', lhs) and not re.match(
+                        r'^[a-zA-Z_][a-zA-Z0-9_]*\[[^\]]+\]$', lhs):
+                    self.contexto_compilador.errores.append(
+                        f"Error C++ Gen: Lado izquierdo de asignación inválido: '{lhs}'")
+                    continue
+
                 if lhs.startswith('t') and lhs not in target_temp_to_declare:
-                    # El tipo del temporal debería haberse registrado por el parser
-                    simbolo_temp = self.contexto_compilador.obtener_simbolo(
-                        lhs)  # Temporales son "globales" en tabla simbolos
+                    simbolo_temp = self.contexto_compilador.obtener_simbolo(lhs)
                     if simbolo_temp:
                         target_temp_to_declare[lhs] = self._map_type_to_cpp(simbolo_temp['tipo'])
-                    else:  # Fallback si el tipo no se registró
+                    else:
                         target_temp_to_declare[lhs] = self._determinar_tipo_cpp_expr(rhs, current_function_name)
 
-                # Si LHS es una variable no declarada y no es temporal (debería haber sido declarada explícita o implícitamente)
                 elif not lhs.startswith('t') and lhs not in target_declared_vars and '[' not in lhs:
-                    # Esto podría ser una variable que se declaró implícitamente en 3AC pero no en C++ aún
-                    # O un error si la declaración implícita no se manejó bien.
-                    # Asumimos que el parser ya validó y añadió a tabla de símbolos.
                     simbolo_lhs = self.contexto_compilador.obtener_simbolo(lhs, current_function_name)
                     if simbolo_lhs:
                         tipo_lhs_cpp = self._map_type_to_cpp(simbolo_lhs['tipo'])
-                        # Declarar al inicio del scope actual (main o función)
                         declaration_line = f"    {tipo_lhs_cpp} {lhs};"
                         if in_function_def:
-                            # Insertar al inicio de current_function_body si no es un temporal ya declarado
                             if not any(decl.strip().endswith(f" {lhs};") for decl in current_function_body):
                                 current_function_body.insert(0, declaration_line)
                         else:
                             if not any(decl.strip().endswith(f" {lhs};") for decl in self.main_body_lines):
-                                self.main_body_lines.insert(0, declaration_line)  # Declarar al inicio de main
+                                self.main_body_lines.insert(0, declaration_line)
                         target_declared_vars.add(lhs)
                     else:
                         self.contexto_compilador.errores.append(
                             f"Error C++ Gen: Variable '{lhs}' usada sin declarar y no se pudo inferir/encontrar en tabla de símbolos.")
 
-                # Si el RHS es una cadena literal y LHS es de tipo string, asegurar comillas
-                simbolo_lhs_check = self.contexto_compilador.obtener_simbolo(lhs.split('[')[0],
-                                                                             current_function_name)  # Para arr[idx]
+                simbolo_lhs_check = self.contexto_compilador.obtener_simbolo(lhs.split('[')[0], current_function_name)
                 if simbolo_lhs_check and simbolo_lhs_check['tipo'] == 'string':
                     if not (rhs.startswith('"') and rhs.endswith('"')) and not self.contexto_compilador.obtener_simbolo(
                             rhs, current_function_name) and not rhs.startswith('t'):
-                        # Si RHS no es comillado, no es símbolo, no es temporal -> es un literal de string que perdió comillas
                         rhs = f'"{rhs}"'
 
                 target_body.append(f"    {lhs} = {rhs};")
-
-            else:  # Líneas no reconocidas explícitamente
+            else:
                 target_body.append(f"    // {linea} (línea 3AC no procesada directamente)")
 
-        # Insertar declaraciones globales al inicio del archivo C++
         self.function_definitions = cpp_global_declarations + self.function_definitions
 
     def _map_type_to_cpp(self, tipo_lenguaje):
@@ -1486,29 +1519,41 @@ def p_para(p):
         contexto.errores.append(
             f"Error semántico en línea {p.lineno(5)}, columna {encontrar_columna(analizador_lexico.lexdata, p.lexpos(5))}: Condición de 'para' debe ser booleana, no '{cond_expr_tipo_str}'.")
 
-    label_cond_para = contexto.nueva_etiqueta()
-    label_incr_para = contexto.nueva_etiqueta()
-    label_fin_para = contexto.nueva_etiqueta()
+    label_inicio = contexto.nueva_etiqueta()
+    label_cuerpo = contexto.nueva_etiqueta()
+    label_fin = contexto.nueva_etiqueta()
 
-    contexto.emitir(f"# Inicio bucle PARA (línea {lineno_para})")
+    # Emitir la inicialización si existe
     if init_stmt_tuple:
-        print("[DEBUG] init_stmt_tuple:", init_stmt_tuple)
         contexto.emitir(init_stmt_tuple)
 
-    contexto.emitir(f"{label_cond_para}:", "Etiqueta condición PARA")
-    contexto.emitir(f"if not {cond_expr_val_str} goto {label_fin_para}", "Condición PARA")
+    # Saltar a la evaluación de la condición (primera iteración)
+    contexto.emitir(f"goto {label_inicio}", "Saltar a condición inicial")
 
+    # Etiqueta para el cuerpo del bucle
+    contexto.emitir(f"{label_cuerpo}:", "Inicio cuerpo PARA")
+
+    # Emitir el cuerpo del bucle
     if loop_body_stmts_tuples:
         for stmt_tuple in loop_body_stmts_tuples:
             contexto.emitir(stmt_tuple)
 
-    contexto.emitir(f"{label_incr_para}:", "Etiqueta incremento PARA")
+    # Emitir el incremento si existe
     if incr_stmt_tuple:
-        print("[DEBUG] incr_stmt_tuple:", incr_stmt_tuple)
         contexto.emitir(incr_stmt_tuple)
 
-    contexto.emitir(f"goto {label_cond_para}", "Volver a evaluar condición PARA")
-    contexto.emitir(f"{label_fin_para}:", "Fin bucle PARA")
+    # Etiqueta para la condición (se evalúa al inicio de cada iteración)
+    contexto.emitir(f"{label_inicio}:", "Evaluar condición PARA")
+
+    # Crear temporal para condición reevaluada en cada iteración
+    cond_temp = contexto.nuevo_temporal()
+    contexto.emitir(f"{cond_temp} = {cond_expr_val_str}", "Reevaluar condición")
+
+    # Saltar al cuerpo si condición es verdadera
+    contexto.emitir(f"if {cond_temp} goto {label_cuerpo}", "Si condición verdadera, ejecutar cuerpo")
+
+    # Etiqueta de fin del bucle
+    contexto.emitir(f"{label_fin}:", "Fin bucle PARA")
 
     p[0] = ('para', init_stmt_tuple, (cond_expr_val_str, cond_expr_tipo_str), incr_stmt_tuple, loop_body_stmts_tuples)
 

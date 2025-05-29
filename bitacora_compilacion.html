@@ -19,71 +19,28 @@
 <body>
 <h1>Informe de Compilación</h1>
 <h2>Lista de Tokens</h2>
-<table border='1'><tr><th>Tipo</th><th>Valor</th><th>Línea</th><th>Columna</th></tr>
-<tr><td>INT_TYPE</td><td>int</td><td>1</td><td>1</td></tr>
-<tr><td>IDENTIFICADOR</td><td>ex1_a</td><td>1</td><td>5</td></tr>
-<tr><td>NEWLINE</td><td>
-</td><td>1</td><td>10</td></tr>
-<tr><td>FLOAT_TYPE</td><td>float</td><td>2</td><td>1</td></tr>
-<tr><td>IDENTIFICADOR</td><td>ex1_b</td><td>2</td><td>7</td></tr>
-<tr><td>IGUAL</td><td>=</td><td>2</td><td>13</td></tr>
-<tr><td>NUMERO</td><td>10.5</td><td>2</td><td>15</td></tr>
-<tr><td>NEWLINE</td><td>
-</td><td>2</td><td>19</td></tr>
-<tr><td>STRING_TYPE</td><td>string</td><td>3</td><td>1</td></tr>
-<tr><td>IDENTIFICADOR</td><td>ex1_c</td><td>3</td><td>8</td></tr>
-<tr><td>IGUAL</td><td>=</td><td>3</td><td>14</td></tr>
-<tr><td>CADENA</td><td>hola mundo</td><td>3</td><td>16</td></tr>
-<tr><td>NEWLINE</td><td>
-</td><td>3</td><td>28</td></tr>
-<tr><td>BOOL_TYPE</td><td>bool</td><td>4</td><td>1</td></tr>
-<tr><td>IDENTIFICADOR</td><td>ex1_d</td><td>4</td><td>6</td></tr>
-<tr><td>IGUAL</td><td>=</td><td>4</td><td>12</td></tr>
-<tr><td>BOOLEANO</td><td>true</td><td>4</td><td>14</td></tr>
-<tr><td>NEWLINE</td><td>
-</td><td>4</td><td>18</td></tr>
-<tr><td>IMPRIMIR</td><td>imprimir</td><td>5</td><td>1</td></tr>
-<tr><td>PARENTESIS_IZQ</td><td>(</td><td>5</td><td>9</td></tr>
-<tr><td>IDENTIFICADOR</td><td>ex1_b</td><td>5</td><td>10</td></tr>
-<tr><td>PARENTESIS_DER</td><td>)</td><td>5</td><td>15</td></tr>
-<tr><td>NEWLINE</td><td>
-</td><td>5</td><td>16</td></tr>
-<tr><td>IMPRIMIR</td><td>imprimir</td><td>6</td><td>1</td></tr>
-<tr><td>PARENTESIS_IZQ</td><td>(</td><td>6</td><td>9</td></tr>
-<tr><td>IDENTIFICADOR</td><td>ex1_c</td><td>6</td><td>10</td></tr>
-<tr><td>PARENTESIS_DER</td><td>)</td><td>6</td><td>15</td></tr>
-<tr><td>NEWLINE</td><td>
-</td><td>6</td><td>16</td></tr>
-<tr><td>IMPRIMIR</td><td>imprimir</td><td>7</td><td>1</td></tr>
-<tr><td>PARENTESIS_IZQ</td><td>(</td><td>7</td><td>9</td></tr>
-<tr><td>IDENTIFICADOR</td><td>ex1_d</td><td>7</td><td>10</td></tr>
-<tr><td>PARENTESIS_DER</td><td>)</td><td>7</td><td>15</td></tr>
-</table>
+<p>No se generaron tokens o la lista de tokens está vacía.</p>
 <h2>Errores y Advertencias</h2>
-<p class='success'>No se encontraron errores léxicos, sintácticos o semánticos.</p>
+<ul>
+<li class='error-item'>Error de sintaxis en línea 18, columna 1: Token inesperado 'float' (tipo: FLOAT_TYPE)</li>
+<li class='error-item'>Error de sintaxis en línea 20, columna 1: Token inesperado 'imprimir' (tipo: IMPRIMIR)</li>
+<li class='error-item'>Error semántico en línea 21, columna 10: Variable 'ex2_f_val' no declarada.</li>
+<li class='error-item'>Error semántico en línea 0, columna 1: Expresión inválida en 'imprimir'.</li>
+</ul>
 <h2>Tabla de Símbolos</h2>
-<table border='1'><tr><th>Nombre</th><th>Tipo</th><th>Valor</th><th>Ámbito</th></tr>
-<tr><td>ex1_a</td><td>int</td><td>None</td><td>global</td></tr>
-<tr><td>ex1_b</td><td>float</td><td>10.5</td><td>global</td></tr>
-<tr><td>ex1_c</td><td>string</td><td>"hola mundo"</td><td>global</td></tr>
-<tr><td>ex1_d</td><td>bool</td><td>true</td><td>global</td></tr>
-</table>
+<p>Tabla de símbolos no disponible o vacía.</p>
 <div class='code-block'>
 <h2>Código de Tres Direcciones Optimizado</h2>
 <pre>
-declare int ex1_a              # Declarar variable ex1_a tipo int
-declare float ex1_b            # Declarar variable ex1_b tipo float
-t1 = 10.5                      # Valor inicial para ex1_b
-ex1_b = 10.5                     # Asignar valor inicial a ex1_b
-declare string ex1_c           # Declarar variable ex1_c tipo string
-t2 = "hola mundo"              # Valor inicial para ex1_c
-ex1_c = t2                     # Asignar valor inicial a ex1_c
-declare bool ex1_d             # Declarar variable ex1_d tipo bool
-t3 = true                      # Valor inicial para ex1_d
-ex1_d = true                     # Asignar valor inicial a ex1_d
-imprimir 10.5                 # Imprimir valor (tipo: float)
-imprimir "hola mundo"                 # Imprimir valor (tipo: string)
-imprimir true                 # Imprimir valor (tipo: bool)
+declare int ex2_x              # Declarar variable ex2_x tipo int
+t1 = 5                         # Valor inicial para ex2_x
+ex2_x = t1                     # Asignar valor inicial a ex2_x
+declare int ex2_y              # Declarar variable ex2_y tipo int
+t2 = 10                        # Valor inicial para ex2_y
+ex2_y = t2                     # Asignar valor inicial a ex2_y
+declare int ex2_z              # Declarar variable ex2_z tipo int
+t3 = ex2_y * 2                 # Operación binaria: int * int -> int
+t4 = ex2_x + t3                # Operación binaria: int + int -> int
 INICIO_PROGRAMA                # Inicio del programa
 FIN_PROGRAMA                   # Fin del programa
 </pre>
@@ -100,22 +57,19 @@ using namespace std;
 
 
 int main() {
-    float t1;
-    std::string t2;
-    bool t3;
-    int ex1_a;
-    float ex1_b;
-    t1 = 10.5;
-    ex1_b = 10.5;
-    std::string ex1_c;
-    t2 = "hola mundo";
-    ex1_c = t2;
-    bool ex1_d;
-    t3 = true;
-    ex1_d = true;
-    std::cout << 10.5 << std::endl;
-    std::cout << "hola mundo" << std::endl;
-    std::cout << std::boolalpha << true << std::endl;
+    int t1;
+    int t2;
+    int t3;
+    int t4;
+    int ex2_x;
+    t1 = 5;
+    ex2_x = t1;
+    int ex2_y;
+    t2 = 10;
+    ex2_y = t2;
+    int ex2_z;
+    t3 = ex2_y * 2;
+    t4 = ex2_x + t3;
     return 0;
 }</pre>
 </div>

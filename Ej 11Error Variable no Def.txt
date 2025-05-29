@@ -1,6 +1,0 @@
-# Este bloque está diseñado para generar un error semántico si se analiza.
-# int ex11_var_a = 5
-# int ex11_var_b
-# # ex11_var_c no está declarada y se usa en una expresión.
-# ex11_var_b = ex11_var_a + ex11_var_c
-# imprimir(ex11_var_b)
