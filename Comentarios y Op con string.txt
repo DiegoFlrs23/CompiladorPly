@@ -1,0 +1,5 @@
+string ex9_s1 = "Compiladores " # Comentario al final de la linea
+string ex9_s2 = "es un curso!"
+string ex9_s3
+ex9_s3 = ex9_s1 + ex9_s2 # Concatenación de strings
+imprimir(ex9_s3)

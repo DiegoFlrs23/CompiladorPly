@@ -1,0 +1,10 @@
+int ex3_miArray[3]
+ex3_miArray[0] = 10
+ex3_miArray[1] = ex3_miArray[0] + 5
+ex3_miArray[2] = ex3_miArray[0] - ex3_miArray[1] # 10 - 15 = -5
+int ex3_val_array = ex3_miArray[1]
+imprimir(ex3_val_array) # 15
+imprimir(ex3_miArray[2]) # -5
+
+float ex3_otroArray[2] = {1.1, 2.2}
+imprimir(ex3_otroArray[0])

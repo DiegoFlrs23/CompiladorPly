@@ -1,0 +1,160 @@
+# --- Contenido del Archivo TXT para el Parser ---
+
+# ---- Ejemplo 1: Declaración de Variables y Tipos Básicos ----
+# Característica: Declaración de Variables y Tipos Básicos
+int ex1_a
+float ex1_b = 10.5
+string ex1_c = "hola mundo"
+bool ex1_d = true
+imprimir(ex1_b)
+imprimir(ex1_c)
+imprimir(ex1_d)
+
+# ---- Ejemplo 2: Asignación y Expresiones Aritméticas ----
+# Característica: Asignación y Expresiones Aritméticas
+int ex2_x = 5
+int ex2_y = 10
+int ex2_z
+ex2_z = ex2_x + ex2_y * 2 - 1 # ex2_z = 5 + 20 - 1 = 24
+float ex2_f_val
+ex2_f_val = ex2_z / 3.0 # ex2_f_val = 24 / 3.0 = 8.0
+imprimir(ex2_z)
+imprimir(ex2_f_val)
+
+# ---- Ejemplo 3: Declaración y Uso de Arrays ----
+# Característica: Declaración y Uso de Arrays
+int ex3_miArray[3]
+ex3_miArray[0] = 10
+ex3_miArray[1] = ex3_miArray[0] + 5
+ex3_miArray[2] = ex3_miArray[0] - ex3_miArray[1] # 10 - 15 = -5
+int ex3_val_array = ex3_miArray[1]
+imprimir(ex3_val_array) # 15
+imprimir(ex3_miArray[2]) # -5
+
+float ex3_otroArray[2] = {1.1, 2.2}
+imprimir(ex3_otroArray[0])
+
+# ---- Ejemplo 4: Condicional si-sino y Operadores Lógicos ----
+# Característica: Condicional si-sino y Operadores Lógicos
+int ex4_val = 15
+string ex4_msg
+si (ex4_val > 10 y ex4_val < 20) {
+    ex4_msg = "En rango (10,20)"
+    imprimir(ex4_msg)
+} sino {
+    ex4_msg = "Fuera de rango (10,20)"
+    imprimir(ex4_msg)
+}
+
+bool ex4_check = false
+si (ex4_val < 10 o no ex4_check) { # 15 < 10 (F) o no false (T) -> T
+    imprimir("Condicion compleja verdadera")
+}
+
+# ---- Ejemplo 5: Bucle mientras ----
+# Característica: Bucle mientras
+int ex5_contador = 0
+mientras (ex5_contador < 3) {
+    imprimir("Contador while:")
+    imprimir(ex5_contador)
+    ex5_contador = ex5_contador + 1
+}
+imprimir("Fin mientras")
+
+# ---- Ejemplo 6: Bucle para ----
+# Característica: Bucle para
+int ex6_k # Declaración externa para la variable del bucle para
+para (ex6_k = 2; ex6_k >= 0; ex6_k = ex6_k - 1) {
+    imprimir("Contador para:")
+    imprimir(ex6_k)
+}
+imprimir("Fin para")
+
+# ---- Ejemplo 7: Funciones (void, con retorno, con parámetros) ----
+# Característica: Funciones (void, con retorno, con parámetros)
+func ex7_saludar() {
+    imprimir("Hola desde funcion ex7_saludar!")
+}
+
+func int ex7_sumar(int a, int b) {
+    int resultado_func # Local a ex7_sumar
+    resultado_func = a + b
+    retornar resultado_func
+}
+
+ex7_saludar() # Llamada a función void
+
+int ex7_res_suma
+ex7_res_suma = ex7_sumar(15, 7) # ex7_res_suma = 22
+imprimir("Resultado de la suma (ex7):")
+imprimir(ex7_res_suma)
+
+func float ex7_dividir(float x_param, float y_param) {
+    si (y_param == 0.0) {
+        imprimir("Error: ex7_dividir por cero detectada.")
+        retornar 0.0 # Retorno en caso de error
+    }
+    float div_res_func_local # Local a ex7_dividir
+    div_res_func_local = x_param / y_param
+    retornar div_res_func_local
+}
+
+float ex7_r_div1 = ex7_dividir(10.0, 4.0) # 2.5
+imprimir(ex7_r_div1)
+float ex7_r_div2 = ex7_dividir(5.0, 0.0) # Error, retorna 0.0
+imprimir(ex7_r_div2)
+
+
+# ---- Ejemplo 8: Declaración Implícita y Leer Entrada ----
+# Característica: Declaración Implícita y Leer Entrada
+# La declaración implícita ocurre en la primera asignación
+# si la variable no ha sido declarada previamente.
+ex8_valor_implicito = 100 + 50 * 2 # ex8_valor_implicito = 200 (int)
+imprimir(ex8_valor_implicito)
+
+# Para 'leer', la variable debe estar declarada explícitamente por la gramática actual
+string ex8_nombre_usuario
+imprimir("Introduce tu nombre (ex8):")
+leer(ex8_nombre_usuario)
+imprimir("Hola, ")
+imprimir(ex8_nombre_usuario)
+
+
+# ---- Ejemplo 9: Comentarios y Operaciones con Strings ----
+# Característica: Comentarios y Operaciones con Strings
+# Este es un programa de prueba de comentarios y strings.
+string ex9_s1 = "Compiladores " # Comentario al final de la linea
+string ex9_s2 = "es un curso!"
+string ex9_s3
+ex9_s3 = ex9_s1 + ex9_s2 # Concatenación de strings
+imprimir(ex9_s3)
+
+# ---- Ejemplo 10: Ejemplo de Error Semántico (Tipo Incorrecto en Asignación) ----
+# Característica: Ejemplo de Error Semántico (Tipo Incorrecto en Asignación)
+# Este bloque está diseñado para generar un error semántico si se analiza.
+# int ex10_numero_entero = 10
+# string ex10_texto_cadena = "hola"
+# imprimir(ex10_numero_entero)
+# ex10_numero_entero = ex10_texto_cadena # Error: intentando asignar string a int
+# imprimir(ex10_numero_entero)
+
+
+# ---- Ejemplo 11: Ejemplo de Error Semántico (Variable no Declarada) ----
+# Característica: Ejemplo de Error Semántico (Variable no Declarada)
+# Este bloque está diseñado para generar un error semántico si se analiza.
+# int ex11_var_a = 5
+# int ex11_var_b
+# # ex11_var_c no está declarada y se usa en una expresión.
+# ex11_var_b = ex11_var_a + ex11_var_c
+# imprimir(ex11_var_b)
+
+
+# ---- Ejemplo 12: Ejemplo de Error Semántico (Función no Declarada) ----
+# Característica: Ejemplo de Error Semántico (Función no Declarada)
+# Este bloque está diseñado para generar un error semántico si se analiza.
+# int ex12_resultado_llamada
+# ex12_resultado_llamada = ex12_funcion_inexistente(10, 20)
+# imprimir(ex12_resultado_llamada)
+
+# ---- Fin de Ejemplos ----
+imprimir("Todos los ejemplos válidos procesados.")

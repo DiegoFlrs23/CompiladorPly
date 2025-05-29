@@ -1,0 +1,5 @@
+int ex6_k
+para (ex6_k = 2; ex6_k >= 0; ex6_k = ex6_k - 1) {
+    imprimir("Contador para:")
+    imprimir(ex6_k)
+}

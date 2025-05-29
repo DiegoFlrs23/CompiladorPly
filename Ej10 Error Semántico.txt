@@ -1,0 +1,6 @@
+# Este bloque está diseñado para generar un error semántico si se analiza.
+# int ex10_numero_entero = 10
+# string ex10_texto_cadena = "hola"
+# imprimir(ex10_numero_entero)
+# ex10_numero_entero = ex10_texto_cadena # Error: intentando asignar string a int
+# imprimir(ex10_numero_entero)

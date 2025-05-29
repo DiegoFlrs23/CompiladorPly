@@ -1,0 +1,8 @@
+int ex2_x = 5
+int ex2_y = 10
+int ex2_z
+ex2_z = ex2_x + ex2_y * 2 - 1 # ex2_z = 5 + 20 - 1 = 24
+float ex2_f_val
+ex2_f_val = ex2_z / 3.0 # ex2_f_val = 24 / 3.0 = 8.0
+imprimir(ex2_z)
+imprimir(ex2_f_val)

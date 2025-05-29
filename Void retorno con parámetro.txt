@@ -1,0 +1,31 @@
+func ex7_saludar() {
+    imprimir("Hola desde funcion ex7_saludar!")
+}
+
+func int ex7_sumar(int a, int b) {
+    int resultado_func # Local a ex7_sumar
+    resultado_func = a + b
+    retornar resultado_func
+}
+
+ex7_saludar() # Llamada a función void
+
+int ex7_res_suma
+ex7_res_suma = ex7_sumar(15, 7) # ex7_res_suma = 22
+imprimir("Resultado de la suma (ex7):")
+imprimir(ex7_res_suma)
+
+func float ex7_dividir(float x_param, float y_param) {
+    si (y_param == 0.0) {
+        imprimir("Error: ex7_dividir por cero detectada.")
+        retornar 0.0 # Retorno en caso de error
+    }
+    float div_res_func_local # Local a ex7_dividir
+    div_res_func_local = x_param / y_param
+    retornar div_res_func_local
+}
+
+float ex7_r_div1 = ex7_dividir(10.0, 4.0) # 2.5
+imprimir(ex7_r_div1)
+float ex7_r_div2 = ex7_dividir(5.0, 0.0) # Error, retorna 0.0
+imprimir(ex7_r_div2)

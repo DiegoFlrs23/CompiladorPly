@@ -1,1 +1,177 @@
-<html><head><title>Bitacora de Errores</title></head><body><h2>Lista de Tokens</h2><table border='1'><tr><th>Tipo</th><th>Valor</th><th>Línea</th></tr><tr><td>IDENTIFICADOR</td><td>x</td><td>2</td></tr><tr><td>IGUAL</td><td>=</td><td>2</td></tr><tr><td>NUMERO</td><td>5</td><td>2</td></tr><tr><td>IDENTIFICADOR</td><td>y</td><td>3</td></tr><tr><td>IGUAL</td><td>=</td><td>3</td></tr><tr><td>NUMERO</td><td>10</td><td>3</td></tr><tr><td>IDENTIFICADOR</td><td>resultado</td><td>4</td></tr><tr><td>IGUAL</td><td>=</td><td>4</td></tr><tr><td>IDENTIFICADOR</td><td>x</td><td>4</td></tr><tr><td>MAS</td><td>+</td><td>4</td></tr><tr><td>IDENTIFICADOR</td><td>y</td><td>4</td></tr><tr><td>IMPRIMIR</td><td>imprimir</td><td>7</td></tr><tr><td>PARENTESIS_IZQ</td><td>(</td><td>7</td></tr><tr><td>CADENA</td><td>El resultado es:</td><td>7</td></tr><tr><td>PARENTESIS_DER</td><td>)</td><td>7</td></tr><tr><td>SI</td><td>si</td><td>10</td></tr><tr><td>PARENTESIS_IZQ</td><td>(</td><td>10</td></tr><tr><td>IDENTIFICADOR</td><td>resultado</td><td>10</td></tr><tr><td>MAYOR</td><td>></td><td>10</td></tr><tr><td>NUMERO</td><td>10</td><td>10</td></tr><tr><td>PARENTESIS_DER</td><td>)</td><td>10</td></tr><tr><td>LLAVE_IZQ</td><td>{</td><td>10</td></tr><tr><td>IMPRIMIR</td><td>imprimir</td><td>11</td></tr><tr><td>PARENTESIS_IZQ</td><td>(</td><td>11</td></tr><tr><td>CADENA</td><td>Resultado mayor que 10</td><td>11</td></tr><tr><td>PARENTESIS_DER</td><td>)</td><td>11</td></tr><tr><td>LLAVE_DER</td><td>}</td><td>12</td></tr><tr><td>SI</td><td>si</td><td>15</td></tr><tr><td>PARENTESIS_IZQ</td><td>(</td><td>15</td></tr><tr><td>IDENTIFICADOR</td><td>x</td><td>15</td></tr><tr><td>IGUAL</td><td>=</td><td>15</td></tr><tr><td>MAYOR</td><td>></td><td>15</td></tr><tr><td>IDENTIFICADOR</td><td>y</td><td>15</td></tr><tr><td>PARENTESIS_DER</td><td>)</td><td>15</td></tr><tr><td>LLAVE_IZQ</td><td>{</td><td>15</td></tr><tr><td>IMPRIMIR</td><td>imprimir</td><td>16</td></tr><tr><td>PARENTESIS_IZQ</td><td>(</td><td>16</td></tr><tr><td>CADENA</td><td>Esto no se debería imprimir</td><td>16</td></tr><tr><td>PARENTESIS_DER</td><td>)</td><td>16</td></tr><tr><td>LLAVE_DER</td><td>}</td><td>17</td></tr><tr><td>IDENTIFICADOR</td><td>x</td><td>20</td></tr><tr><td>IGUAL_IGUAL</td><td>==</td><td>20</td></tr><tr><td>NUMERO</td><td>5</td><td>20</td></tr><tr><td>IDENTIFICADOR</td><td>z</td><td>23</td></tr><tr><td>IGUAL</td><td>=</td><td>23</td></tr><tr><td>IDENTIFICADOR</td><td>x</td><td>23</td></tr><tr><td>MAS</td><td>+</td><td>23</td></tr><tr><td>IMPRIMIR</td><td>imprimir</td><td>26</td></tr><tr><td>PARENTESIS_IZQ</td><td>(</td><td>26</td></tr><tr><td>IDENTIFICADOR</td><td>Hola</td><td>26</td></tr><tr><td>PARENTESIS_DER</td><td>)</td><td>26</td></tr></table><h2>Errores Lexicos y Sintacticos</h2><ul><li>[SINTACTICO] Error en linea 41: Token inesperado '='</li><li>[SINTACTICO] Error en linea 43: Token inesperado '}'</li><li>[SINTACTICO] Error en linea 52: Token inesperado 'imprimir'</li></ul><h2>Tabla de Simbolos</h2><table border='1'><tr><th>Nombre</th><th>Línea</th><th>Tipo</th></tr><tr><td>x</td><td>2</td><td>Variable Global</td></tr><tr><td>y</td><td>3</td><td>Variable Global</td></tr><tr><td>resultado</td><td>4</td><td>Variable Global</td></tr><tr><td>x</td><td>4</td><td>Variable Global</td></tr><tr><td>y</td><td>4</td><td>Variable Global</td></tr><tr><td>imprimir</td><td>7</td><td>Funcion</td></tr><tr><td>si</td><td>10</td><td>Inicio Condicion</td></tr><tr><td>resultado</td><td>10</td><td>Variable Global</td></tr><tr><td>imprimir</td><td>11</td><td>Funcion</td></tr><tr><td>si</td><td>15</td><td>Inicio Condicion</td></tr><tr><td>x</td><td>15</td><td>Variable Global</td></tr><tr><td>y</td><td>15</td><td>Variable Global</td></tr><tr><td>imprimir</td><td>16</td><td>Funcion</td></tr><tr><td>x</td><td>20</td><td>Variable Global</td></tr><tr><td>z</td><td>23</td><td>Variable Global</td></tr><tr><td>x</td><td>23</td><td>Variable Global</td></tr><tr><td>imprimir</td><td>26</td><td>Funcion</td></tr><tr><td>Hola</td><td>26</td><td>Variable Global</td></tr></table></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bitácora de Compilación</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        h2 { color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #e2e2e2; }
+        ul { list-style-type: none; padding: 0; }
+        li { background-color: #ffe6e6; border-left: 5px solid #ff4d4d; margin-bottom: 5px; padding: 8px; }
+        pre { background-color: #eee; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        .success { background-color: #e6ffe6; border-left: 5px solid #4dff4d; }
+    </style>
+</head>
+<body>
+<h1>Informe de Compilación</h1>
+<h2>Lista de Tokens</h2>
+<table border='1'><tr><th>Tipo</th><th>Valor</th><th>Línea</th><th>Columna</th></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>2</td><td>38 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>3</td><td>39 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>3</td><td>40 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>Asignaciones</td><td>3</td><td>42 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>b</td><td>3</td><td>55 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>sicas</td><td>3</td><td>57 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>3</td><td>62 (raw)</td></tr>
+<tr><td>INT_TYPE</td><td>int</td><td>4</td><td>63 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>x</td><td>4</td><td>67 (raw)</td></tr>
+<tr><td>IGUAL</td><td>=</td><td>4</td><td>69 (raw)</td></tr>
+<tr><td>NUMERO</td><td>5</td><td>4</td><td>71 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>4</td><td>72 (raw)</td></tr>
+<tr><td>INT_TYPE</td><td>int</td><td>5</td><td>73 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>y</td><td>5</td><td>77 (raw)</td></tr>
+<tr><td>IGUAL</td><td>=</td><td>5</td><td>79 (raw)</td></tr>
+<tr><td>NUMERO</td><td>10</td><td>5</td><td>81 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>5</td><td>83 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>x</td><td>6</td><td>84 (raw)</td></tr>
+<tr><td>IGUAL</td><td>=</td><td>6</td><td>86 (raw)</td></tr>
+<tr><td>NUMERO</td><td>6</td><td>6</td><td>88 (raw)</td></tr>
+<tr><td>PUNTO_COMA</td><td>;</td><td>6</td><td>89 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>6</td><td>91 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>6</td><td>92 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>Re</td><td>6</td><td>94 (raw)</td></tr>
+<tr><td>MENOS</td><td>-</td><td>6</td><td>96 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>assignment</td><td>6</td><td>97 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+
+</td><td>6</td><td>107 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>8</td><td>109 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>8</td><td>110 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>Operaciones</td><td>8</td><td>112 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>8</td><td>123 (raw)</td></tr>
+<tr><td>INT_TYPE</td><td>int</td><td>9</td><td>124 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>resultado</td><td>9</td><td>128 (raw)</td></tr>
+<tr><td>IGUAL</td><td>=</td><td>9</td><td>138 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>x</td><td>9</td><td>140 (raw)</td></tr>
+<tr><td>MAS</td><td>+</td><td>9</td><td>142 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>y</td><td>9</td><td>144 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+
+</td><td>9</td><td>145 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>11</td><td>147 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>11</td><td>148 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>Condicional</td><td>11</td><td>150 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>simple</td><td>11</td><td>162 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>11</td><td>168 (raw)</td></tr>
+<tr><td>SI</td><td>si</td><td>12</td><td>169 (raw)</td></tr>
+<tr><td>PARENTESIS_IZQ</td><td>(</td><td>12</td><td>172 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>resultado</td><td>12</td><td>173 (raw)</td></tr>
+<tr><td>MAYOR</td><td>></td><td>12</td><td>183 (raw)</td></tr>
+<tr><td>NUMERO</td><td>10</td><td>12</td><td>185 (raw)</td></tr>
+<tr><td>PARENTESIS_DER</td><td>)</td><td>12</td><td>187 (raw)</td></tr>
+<tr><td>LLAVE_IZQ</td><td>{</td><td>12</td><td>189 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>12</td><td>190 (raw)</td></tr>
+<tr><td>IMPRIMIR</td><td>imprimir</td><td>13</td><td>195 (raw)</td></tr>
+<tr><td>PARENTESIS_IZQ</td><td>(</td><td>13</td><td>203 (raw)</td></tr>
+<tr><td>CADENA</td><td>El resultado es mayor que 10</td><td>13</td><td>204 (raw)</td></tr>
+<tr><td>PARENTESIS_DER</td><td>)</td><td>13</td><td>234 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>13</td><td>235 (raw)</td></tr>
+<tr><td>LLAVE_DER</td><td>}</td><td>14</td><td>236 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+
+</td><td>14</td><td>237 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>16</td><td>239 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>16</td><td>240 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>Funci</td><td>16</td><td>242 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>n</td><td>16</td><td>248 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>simple</td><td>16</td><td>250 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>16</td><td>256 (raw)</td></tr>
+<tr><td>FUNC</td><td>func</td><td>17</td><td>257 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>suma</td><td>17</td><td>262 (raw)</td></tr>
+<tr><td>PARENTESIS_IZQ</td><td>(</td><td>17</td><td>266 (raw)</td></tr>
+<tr><td>INT_TYPE</td><td>int</td><td>17</td><td>267 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>a</td><td>17</td><td>271 (raw)</td></tr>
+<tr><td>COMA</td><td>,</td><td>17</td><td>272 (raw)</td></tr>
+<tr><td>INT_TYPE</td><td>int</td><td>17</td><td>274 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>b</td><td>17</td><td>278 (raw)</td></tr>
+<tr><td>PARENTESIS_DER</td><td>)</td><td>17</td><td>279 (raw)</td></tr>
+<tr><td>LLAVE_IZQ</td><td>{</td><td>17</td><td>281 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>17</td><td>283 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>17</td><td>284 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>Parameters</td><td>17</td><td>286 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>need</td><td>17</td><td>297 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>types</td><td>17</td><td>302 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>17</td><td>307 (raw)</td></tr>
+<tr><td>RETORNAR</td><td>retornar</td><td>18</td><td>312 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>a</td><td>18</td><td>321 (raw)</td></tr>
+<tr><td>MAS</td><td>+</td><td>18</td><td>323 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>b</td><td>18</td><td>325 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>18</td><td>326 (raw)</td></tr>
+<tr><td>LLAVE_DER</td><td>}</td><td>19</td><td>327 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+
+</td><td>19</td><td>328 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>21</td><td>330 (raw)</td></tr>
+<tr><td>DIV</td><td>/</td><td>21</td><td>331 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>Llamada</td><td>21</td><td>333 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>a</td><td>21</td><td>341 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>funci</td><td>21</td><td>343 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>n</td><td>21</td><td>349 (raw)</td></tr>
+<tr><td>NEWLINE</td><td>
+</td><td>21</td><td>350 (raw)</td></tr>
+<tr><td>INT_TYPE</td><td>int</td><td>22</td><td>351 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>z</td><td>22</td><td>355 (raw)</td></tr>
+<tr><td>IGUAL</td><td>=</td><td>22</td><td>357 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>suma</td><td>22</td><td>359 (raw)</td></tr>
+<tr><td>PARENTESIS_IZQ</td><td>(</td><td>22</td><td>363 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>x</td><td>22</td><td>364 (raw)</td></tr>
+<tr><td>COMA</td><td>,</td><td>22</td><td>365 (raw)</td></tr>
+<tr><td>IDENTIFICADOR</td><td>y</td><td>22</td><td>367 (raw)</td></tr>
+<tr><td>PARENTESIS_DER</td><td>)</td><td>22</td><td>368 (raw)</td></tr>
+</table>
+<h2>Errores y Advertencias</h2>
+<ul>
+<li>Error de sintaxis en línea 23, columna 1: 
+</li>
+<li>Error de sintaxis en línea 27, columna 6: ;</li>
+<li>Error de sintaxis en línea 32, columna 1: /</li>
+<li>Error de sintaxis en línea 33, columna 22: 
+</li>
+<li>Error de sintaxis en línea 35, columna 1: }</li>
+<li>Error de sintaxis en línea 38, columna 27: /</li>
+<li>Error de sintaxis en línea 40, columna 1: }</li>
+<li>Error léxico en línea 3, columna 18: Carácter ilegal o inesperado 'á'</li>
+<li>Error léxico en línea 16, columna 9: Carácter ilegal o inesperado 'ó'</li>
+<li>Error léxico en línea 21, columna 19: Carácter ilegal o inesperado 'ó'</li>
+<li>Error léxico en línea 24, columna 18: Carácter ilegal o inesperado 'á'</li>
+<li>Error léxico en línea 37, columna 9: Carácter ilegal o inesperado 'ó'</li>
+<li>Error léxico en línea 42, columna 19: Carácter ilegal o inesperado 'ó'</li>
+</ul>
+<h2>Tabla de Símbolos</h2>
+<table border='1'><tr><th>Nombre</th><th>Tipo</th><th>Valor</th><th>Ámbito</th></tr>
+<tr><td>x</td><td>int</td><td>None</td><td>global</td></tr>
+<tr><td>y</td><td>int</td><td>None</td><td>global</td></tr>
+<tr><td>resultado</td><td>int</td><td>None</td><td>global</td></tr>
+<tr><td>b</td><td>int</td><td>None</td><td>global</td></tr>
+<tr><td>a</td><td>int</td><td>None</td><td>global</td></tr>
+<tr><td>z</td><td>int</td><td>None</td><td>global</td></tr>
+</table>
+<h2>Código de Tres Direcciones Optimizado</h2>
+<p>No se generó código de tres direcciones optimizado.</p>
+<h2>Código C++ Generado</h2>
+<p>No se generó código C++.</p>
+</body>
+</html>

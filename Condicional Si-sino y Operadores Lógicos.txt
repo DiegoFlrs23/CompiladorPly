@@ -1,0 +1,14 @@
+int ex4_val = 15
+string ex4_msg
+si (ex4_val > 10 y ex4_val < 20) {
+    ex4_msg = "En rango (10,20)"
+    imprimir(ex4_msg)
+} sino {
+    ex4_msg = "Fuera de rango (10,20)"
+    imprimir(ex4_msg)
+}
+
+bool ex4_check = false
+si (ex4_val < 10 o no ex4_check) { # 15 < 10 (F) o no false (T) -> T
+    imprimir("Condicion compleja verdadera")
+}

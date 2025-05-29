@@ -1,0 +1,7 @@
+int ex1_a
+float ex1_b = 10.5
+string ex1_c = "hola mundo"
+bool ex1_d = true
+imprimir(ex1_b)
+imprimir(ex1_c)
+imprimir(ex1_d)

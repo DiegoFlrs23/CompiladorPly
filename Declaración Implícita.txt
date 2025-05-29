@@ -1,0 +1,10 @@
+# si la variable no ha sido declarada previamente.
+ex8_valor_implicito = 100 + 50 * 2 # ex8_valor_implicito = 200 (int)
+imprimir(ex8_valor_implicito)
+
+# Para 'leer', la variable debe estar declarada explícitamente por la gramática actual
+string ex8_nombre_usuario
+imprimir("Introduce tu nombre (ex8):")
+leer(ex8_nombre_usuario)
+imprimir("Hola, ")
+imprimir(ex8_nombre_usuario)

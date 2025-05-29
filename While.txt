@@ -1,0 +1,7 @@
+int ex5_contador = 0
+mientras (ex5_contador < 3) {
+    imprimir("Contador while:")
+    imprimir(ex5_contador)
+    ex5_contador = ex5_contador + 1
+}
+imprimir("Fin mientras")
