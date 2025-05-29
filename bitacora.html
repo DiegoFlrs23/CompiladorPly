@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bitácora de Compilación</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        h1 { text-align: center; color: #333; }
+        h2 { color: #0056b3; border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #e2e2e2; }
+        ul { list-style-type: none; padding: 0; }
+        li.error-item { background-color: #ffe6e6; border-left: 5px solid #ff4d4d; margin-bottom: 5px; padding: 8px; }
+        pre { background-color: #eee; padding: 10px; border-radius: 5px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; }
+        .success { background-color: #e6ffe6; border-left: 5px solid #4dff4d; padding: 10px; margin-bottom: 10px; }
+        .code-block { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<h1>Informe de Compilación</h1>
+<h2>Lista de Tokens</h2>
+<p>No se generaron tokens o la lista de tokens está vacía.</p>
+<h2>Errores y Advertencias</h2>
+<p class='success'>No se encontraron errores léxicos, sintácticos o semánticos.</p>
+<h2>Tabla de Símbolos</h2>
+<p>Tabla de símbolos no disponible o vacía.</p>
+<div class='code-block'>
+<h2>Código de Tres Direcciones Optimizado</h2>
+<pre>
+declare int ex6_k              # Declarar variable ex6_k tipo int
+t1 = 2                         # Calcular valor para ex6_k
+ex6_k = t1                     # Asignar a ex6_k
+t2 = ex6_k >= 0                # Operación binaria: int >= int -> bool
+t3 = ex6_k - 1                 # Operación binaria: int - int -> int
+t4 = t3                        # Calcular valor para ex6_k
+ex6_k = t4                     # Asignar a ex6_k
+imprimir "Contador para:"      # Imprimir valor (tipo: string)
+imprimir ex6_k                 # Imprimir valor (tipo: int)
+# Inicio bucle PARA (línea 3)
+ex6_k = t1
+L1:                            # Etiqueta condición PARA
+if not t2 goto L3              # Condición PARA
+imprimir "Contador para:"
+imprimir ex6_k
+L2:                            # Etiqueta incremento PARA
+ex6_k = t4
+goto L1                        # Volver a evaluar condición PARA
+L3:                            # Fin bucle PARA
+INICIO_PROGRAMA                # Inicio del programa
+FIN_PROGRAMA                   # Fin del programa
+</pre>
+</div>
+<div class='code-block'>
+<h2>Código C++ Generado</h2>
+<pre>
+#include <iomanip>
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+
+int main() {
+    int t1;
+    bool t2;
+    int t3;
+    int t4;
+    int ex6_k;
+    t1 = 2;
+    ex6_k = t1;
+    t2 = ex6_k >= 0;
+    t3 = ex6_k - 1;
+    t4 = t3;
+    ex6_k = t4;
+    std::cout << "Contador para:" << std::endl;
+    std::cout << ex6_k << std::endl;
+    ex6_k = t1;
+L1:
+    if (!(t2)) goto L3;
+    std::cout << "Contador para:" << std::endl;
+    std::cout << ex6_k << std::endl;
+L2:
+    ex6_k = t4;
+    goto L1;
+L3:
+    return 0;
+}</pre>
+</div>
+</body>
+</html>
